@@ -20,9 +20,9 @@ import java.sql.Statement;
  */
 public class ConnectionPool {
 
-    private Logger logger = LoggerFactory.getLogger(dotting.timer.core.debug.db.mysql.ConnectionPool.class);
+    private Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
 
-    public static dotting.timer.core.debug.db.mysql.ConnectionPool connectionPool;
+    public static ConnectionPool connectionPool;
 
     private DruidDataSource dataSource;
 
@@ -37,14 +37,14 @@ public class ConnectionPool {
             statement = connection.createStatement();
             return statement.executeQuery(sql);
         } catch (SQLException e) {
-            logger.error("tree tracer connection pool get result error! sql={}", sql, e);
+            logger.error("dotting tracer connection pool get result error! sql={}", sql, e);
         } finally {
             if(statement != null){
                 try {
                     statement.close();
                     connection.close();
                 } catch (SQLException e) {
-                    logger.error("tree tracer connection pool close statement error! sql={}", sql, e);
+                    logger.error("dotting tracer connection pool close statement error! sql={}", sql, e);
                 }
             }
         }
@@ -59,14 +59,14 @@ public class ConnectionPool {
             statement = connection.createStatement();
             return statement.executeUpdate(sql);
         } catch (SQLException e) {
-            logger.error("tree tracer connection pool write result error! sql={}", sql, e);
+            logger.error("dotting tracer connection pool write result error! sql={}", sql, e);
         } finally {
             if(statement != null){
                 try {
                     statement.close();
                     connection.close();
                 } catch (SQLException e) {
-                    logger.error("tree tracer connection pool close statement error! sql={}", sql, e);
+                    logger.error("dotting tracer connection pool close statement error! sql={}", sql, e);
                 }
             }
         }
@@ -74,10 +74,10 @@ public class ConnectionPool {
     }
 
     public static void initConnectionPool(String driver, String user, String password, String url) {
-        connectionPool = new dotting.timer.core.debug.db.mysql.ConnectionPool().setDataSource(driver, user, password, url);
+        connectionPool = new ConnectionPool().setDataSource(driver, user, password, url);
     }
 
-    private dotting.timer.core.debug.db.mysql.ConnectionPool setDataSource(String driver, String user, String password, String url) {
+    private ConnectionPool setDataSource(String driver, String user, String password, String url) {
         this.dataSource = new DruidDataSource();
         dataSource.setDriverClassName(driver);
         dataSource.setUsername(user);

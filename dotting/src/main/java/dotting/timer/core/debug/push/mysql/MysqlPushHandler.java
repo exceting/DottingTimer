@@ -4,10 +4,11 @@
  */
 package dotting.timer.core.debug.push.mysql;
 
+import dotting.timer.core.debug.db.mysql.ConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import dotting.timer.core.push.PushHandler;
-import dotting.timer.core.span.TreeSpan;
+import dotting.timer.core.span.DottingSpan;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -18,11 +19,11 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class MysqlPushHandler implements PushHandler {
 
-    private static Logger logger = LoggerFactory.getLogger(dotting.timer.core.debug.push.mysql.MysqlPushHandler.class);
+    private static Logger logger = LoggerFactory.getLogger(MysqlPushHandler.class);
 
-    private BlockingQueue<TreeSpan> queue;
+    private BlockingQueue<DottingSpan> queue;
 
-    private static final PushHandler handler = new dotting.timer.core.debug.push.mysql.MysqlPushHandler();
+    private static final PushHandler handler = new MysqlPushHandler();
 
     private MysqlPushHandler() {
         this.queue = new LinkedBlockingQueue<>();
@@ -34,17 +35,17 @@ public class MysqlPushHandler implements PushHandler {
     }
 
     @Override
-    public void pushSpan(TreeSpan span) {
+    public void pushSpan(DottingSpan span) {
         queue.offer(span);
     }
 
     private void pushTask() {
         if (queue != null) {
-            TreeSpan span;
+            DottingSpan span;
             while (true) {
                 try {
                     span = queue.take();
-                    if (dotting.timer.core.debug.db.mysql.ConnectionPool.connectionPool != null) {
+                    if (ConnectionPool.connectionPool != null) {
                         String sql = String.format("INSERT INTO t_span_node(trace_id, span_id, parent_id, start, end, is_async, is_error, expect, moudle, title, tags) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, '%s', '%s', '%s');",
                                 span.context().getTraceId(),
                                 span.context().getSpanId(),
@@ -57,10 +58,10 @@ public class MysqlPushHandler implements PushHandler {
                                 span.getMoudle(),
                                 span.getTitle(),
                                 span.getTags() != null ? span.getTags().toString() : "");
-                        dotting.timer.core.debug.db.mysql.ConnectionPool.connectionPool.writeResult(sql);
+                        ConnectionPool.connectionPool.writeResult(sql);
                     }
                 } catch (Exception e) {
-                    logger.error("tree tracer push task error!", e);
+                    logger.error("dotting tracer push task error!", e);
                 }
             }
         }

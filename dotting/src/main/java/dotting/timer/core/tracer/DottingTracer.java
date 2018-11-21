@@ -1,10 +1,13 @@
 package dotting.timer.core.tracer;
 
+import dotting.timer.core.builder.DottingSpanContext;
+import dotting.timer.core.push.PushHandler;
+import dotting.timer.core.push.PushHandlerManager;
+import dotting.timer.core.utils.PushUtils;
 import io.opentracing.*;
 import io.opentracing.propagation.Format;
-import dotting.timer.core.builder.TreeReference;
-import dotting.timer.core.push.PushHandler;
-import dotting.timer.core.span.TreeSpan;
+import dotting.timer.core.builder.DottingReference;
+import dotting.timer.core.span.DottingSpan;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,16 +17,16 @@ import java.util.Map;
 /**
  * Create by 18073 on 2018/10/29.
  */
-public class TreeTracer implements Tracer {
+public class DottingTracer implements Tracer {
 
-    private final List<TreeSpan> finishedSpans = new ArrayList<>();
+    private final List<DottingSpan> finishedSpans = new ArrayList<>();
     private String moudle;
     private boolean isDebug;
     private boolean sampled;
     private boolean includeAsync;
 
 
-    public TreeTracer(boolean sampled, String moudle, boolean isDebug) {
+    public DottingTracer(boolean sampled, String moudle, boolean isDebug) {
         this.moudle = moudle;
         this.sampled = isDebug || sampled;
         this.isDebug = isDebug;
@@ -37,11 +40,11 @@ public class TreeTracer implements Tracer {
         this.finishedSpans.clear();
     }
 
-    public synchronized List<TreeSpan> finishedSpans() {
+    public synchronized List<DottingSpan> finishedSpans() {
         return new ArrayList<>(this.finishedSpans);
     }
 
-    public void onSpanFinished(dotting.timer.core.span.TreeSpan biliSpan) {
+    public void onSpanFinished(DottingSpan biliSpan) {
     }
 
     public void setIncludeAsync(boolean includeAsync) {
@@ -80,18 +83,18 @@ public class TreeTracer implements Tracer {
         return null;
     }
 
-    public synchronized void appendFinishedSpan(dotting.timer.core.span.TreeSpan biliSpan) {
+    public synchronized void appendFinishedSpan(DottingSpan biliSpan) {
         this.finishedSpans.add(biliSpan);
         this.onSpanFinished(biliSpan);
     }
 
     public synchronized void pushSpans() {
         if (sampled) {
-            List<TreeSpan> finished = this.finishedSpans;
+            List<DottingSpan> finished = this.finishedSpans;
             if (finished.size() > 0) {
-                finished.stream().filter(dotting.timer.core.span.TreeSpan::getSampled).forEach(f -> {
+                finished.stream().filter(DottingSpan::getSampled).forEach(f -> {
                     System.out.println(f.toString());
-                    PushHandler pushHandler = dotting.timer.core.push.PushHandlerManager.getHandler(isDebug, dotting.timer.core.utils.PushUtils.DBTYPE_MYSQL);
+                    PushHandler pushHandler = PushHandlerManager.getHandler(isDebug, PushUtils.DBTYPE_MYSQL);
                     if(pushHandler != null){
                         pushHandler.pushSpan(f);
                     }
@@ -104,7 +107,7 @@ public class TreeTracer implements Tracer {
     public final class SpanBuilder implements Tracer.SpanBuilder {
         private final String title;
         private long startTime;
-        private List<TreeReference> references = new ArrayList<>();
+        private List<DottingReference> references = new ArrayList<>();
         private Map<String, Object> initialTags = new HashMap<>();
         private long expect;
         private boolean isAsync;
@@ -144,7 +147,7 @@ public class TreeTracer implements Tracer {
         @Override
         public SpanBuilder addReference(String referenceType, SpanContext referencedContext) {
             if (referencedContext != null) {
-                this.references.add(new dotting.timer.core.builder.TreeReference((dotting.timer.core.builder.TreeSpanContext) referencedContext, referenceType));
+                this.references.add(new DottingReference((DottingSpanContext) referencedContext, referenceType));
             }
             return this;
         }
@@ -175,21 +178,21 @@ public class TreeTracer implements Tracer {
 
         @Override
         public Scope startActive(boolean finishOnClose) {
-            return dotting.timer.core.tracer.TreeTracer.this.scopeManager().activate(this.startManual(),
+            return DottingTracer.this.scopeManager().activate(this.startManual(),
                     finishOnClose);
         }
 
         @Override
-        public dotting.timer.core.span.TreeSpan start() {
+        public DottingSpan start() {
             return startManual();
         }
 
         @Override
-        public dotting.timer.core.span.TreeSpan startManual() {
+        public DottingSpan startManual() {
             if (this.startTime == 0) {
-                this.startTime = dotting.timer.core.span.TreeSpan.getCurrentTime();
+                this.startTime = DottingSpan.getCurrentTime();
             }
-            return new dotting.timer.core.span.TreeSpan(dotting.timer.core.tracer.TreeTracer.this, title, startTime,
+            return new DottingSpan(DottingTracer.this, title, startTime,
                     initialTags, references, isAsync, expect);
         }
     }

@@ -2,48 +2,48 @@ package dotting.timer.core.context;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import dotting.timer.core.span.TreeSpan;
-import dotting.timer.core.tracer.TreeTracer;
+import dotting.timer.core.span.DottingSpan;
+import dotting.timer.core.tracer.DottingTracer;
 
 import java.util.LinkedList;
 import java.util.Map;
 
 /**
  * @author sunqinwen
- * @version \: TreeTracerContext.java,v 0.1 2018-10-30 10:21
+ * @version \: DottingTracerContext.java,v 0.1 2018-10-30 10:21
  */
-public class TreeTracerContext {
+public class DottingTracerContext {
 
-    private TreeTracer tracer;
+    private DottingTracer tracer;
 
     private Thread mainThread;
 
-    private Map<Thread, LinkedList<TreeSpan>> spans = Maps.newConcurrentMap();
+    private Map<Thread, LinkedList<DottingSpan>> spans = Maps.newConcurrentMap();
 
     private String family;
 
-    private TreeTracerContext(TreeTracer treeTracer, TreeSpan currentSpan, String family, Thread mainThread) {
+    private DottingTracerContext(DottingTracer dottingTracer, DottingSpan currentSpan, String family, Thread mainThread) {
         this.mainThread = mainThread;
-        this.tracer = treeTracer;
-        LinkedList<TreeSpan> treeSpans = new LinkedList<>();
-        treeSpans.add(currentSpan);
-        spans.put(Thread.currentThread(), treeSpans);
+        this.tracer = dottingTracer;
+        LinkedList<DottingSpan> dottingSpans = new LinkedList<>();
+        dottingSpans.add(currentSpan);
+        spans.put(Thread.currentThread(), dottingSpans);
         this.family = family;
     }
 
-    public static dotting.timer.core.context.TreeTracerContext create(TreeTracer treeTracer, TreeSpan currentSpan, String family, Thread mainThread) {
-        return new dotting.timer.core.context.TreeTracerContext(treeTracer, currentSpan, family, mainThread);
+    public static DottingTracerContext create(DottingTracer dottingTracer, DottingSpan currentSpan, String family, Thread mainThread) {
+        return new DottingTracerContext(dottingTracer, currentSpan, family, mainThread);
     }
 
     public boolean isMainThread() {
         return Thread.currentThread().equals(mainThread);
     }
 
-    public TreeTracer getTracer() {
+    public DottingTracer getTracer() {
         return tracer;
     }
 
-    public void setTracer(TreeTracer tracer) {
+    public void setTracer(DottingTracer tracer) {
         this.tracer = tracer;
     }
 
@@ -67,9 +67,9 @@ public class TreeTracerContext {
         return spans != null && spans.get(Thread.currentThread()).size() == 0;
     }
 
-    public synchronized TreeSpan getCurrentSpan() {
+    public synchronized DottingSpan getCurrentSpan() {
         if (spans != null && spans.size() > 0) {
-            LinkedList<TreeSpan> nowSpans = spans.get(Thread.currentThread());
+            LinkedList<DottingSpan> nowSpans = spans.get(Thread.currentThread());
             if (nowSpans != null && nowSpans.size() > 0) {
                 return nowSpans.getLast();
             }
@@ -77,9 +77,9 @@ public class TreeTracerContext {
         return null;
     }
 
-    public synchronized TreeSpan getAndRemoveCurrentSpan() {
+    public synchronized DottingSpan getAndRemoveCurrentSpan() {
         if (spans != null && spans.size() > 0) {
-            LinkedList<TreeSpan> nowSpans = spans.get(Thread.currentThread());
+            LinkedList<DottingSpan> nowSpans = spans.get(Thread.currentThread());
             if (nowSpans != null && nowSpans.size() > 0) {
                 return nowSpans.removeLast();
             }
@@ -87,9 +87,9 @@ public class TreeTracerContext {
         return null;
     }
 
-    public synchronized TreeSpan getParentSpan() {
+    public synchronized DottingSpan getParentSpan() {
         if (spans != null && spans.size() > 0) {
-            LinkedList<TreeSpan> nowSpans = spans.get(Thread.currentThread());
+            LinkedList<DottingSpan> nowSpans = spans.get(Thread.currentThread());
             if (nowSpans != null && nowSpans.size() > 0) {
                 return nowSpans.getLast();
             }
@@ -98,8 +98,8 @@ public class TreeTracerContext {
         return null;
     }
 
-    public synchronized void addCurrentSpan(TreeSpan currentSpan) {
-        LinkedList<TreeSpan> nowSpans = spans.get(Thread.currentThread());
+    public synchronized void addCurrentSpan(DottingSpan currentSpan) {
+        LinkedList<DottingSpan> nowSpans = spans.get(Thread.currentThread());
         if (nowSpans == null) {
             nowSpans = Lists.newLinkedList();
         }

@@ -29,20 +29,20 @@ public class DataResult {
         this.msg = msg;
     }
 
-    public static dotting.timer.ui.resp.DataResult success(Object t) {
-        return new dotting.timer.ui.resp.DataResult(SUCCESS, t, "success");
+    public static DataResult success(Object t) {
+        return new DataResult(SUCCESS, t, "success");
     }
 
-    public static dotting.timer.ui.resp.DataResult success(Object t, String msg) {
-        return new dotting.timer.ui.resp.DataResult(SUCCESS, t, msg);
+    public static DataResult success(Object t, String msg) {
+        return new DataResult(SUCCESS, t, msg);
     }
 
-    public static dotting.timer.ui.resp.DataResult fail() {
-        return new dotting.timer.ui.resp.DataResult(FAIL, null, "fail");
+    public static DataResult fail() {
+        return new DataResult(FAIL, null, "fail");
     }
 
-    public static dotting.timer.ui.resp.DataResult fail(String msg) {
-        return new dotting.timer.ui.resp.DataResult(FAIL, null, msg);
+    public static DataResult fail(String msg) {
+        return new DataResult(FAIL, null, msg);
     }
 
     public int getCode() {

@@ -8,12 +8,12 @@ import java.lang.annotation.Target;
 /**
  *
  * @author sunqinwen
- * @version \: TracePoint.java,v 0.1 2018-10-30 11:16 
+ * @version \: DottingNode.java,v 0.1 2018-10-30 11:16
  *
  */
 @Target({ ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface TracePoint {
+public @interface DottingNode {
 
     String moudle() default "";
 

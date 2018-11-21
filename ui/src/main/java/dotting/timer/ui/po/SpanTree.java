@@ -32,8 +32,8 @@ public class SpanTree {
         return child;
     }
 
-    public dotting.timer.ui.po.SpanTree setChild(Span span) {
-        dotting.timer.ui.po.SpanTree childNode = new dotting.timer.ui.po.SpanTree();
+    public SpanTree setChild(Span span) {
+        SpanTree childNode = new SpanTree();
         childNode.setNode(span);
         child.add(childNode);
         return childNode;

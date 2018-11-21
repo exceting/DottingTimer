@@ -5,6 +5,7 @@
 
 package dotting.timer.ui.config;
 
+import dotting.timer.ui.db.ConnectionPool;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -35,7 +36,7 @@ public class AppConfig {
         };
         yamlPropertiesFactoryBean.setResources(resources);
         properties.setProperties(yamlPropertiesFactoryBean.getObject());
-        dotting.timer.ui.db.ConnectionPool.initConnectionPool();//初始化数据源
+        ConnectionPool.initConnectionPool();//初始化数据源
         return properties;
     }
 

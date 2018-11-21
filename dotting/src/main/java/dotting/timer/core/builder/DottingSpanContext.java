@@ -7,12 +7,12 @@ import java.util.Map;
 /**
  * Create by 18073 on 2018/10/29.
  */
-public class TreeSpanContext implements SpanContext {
+public class DottingSpanContext implements SpanContext {
 
     private final long traceId;
     private final long spanId;
 
-    public TreeSpanContext(long traceId, long spanId) {
+    public DottingSpanContext(long traceId, long spanId) {
         this.traceId = traceId;
         this.spanId = spanId;
     }

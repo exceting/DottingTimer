@@ -25,9 +25,9 @@ import java.util.List;
 @Component
 public class ConnectionPool {
 
-    private Logger logger = LoggerFactory.getLogger(dotting.timer.ui.db.ConnectionPool.class);
+    private Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
 
-    public static dotting.timer.ui.db.ConnectionPool connectionPool;
+    public static ConnectionPool connectionPool;
 
     private DruidDataSource dataSource;
 
@@ -43,14 +43,14 @@ public class ConnectionPool {
             ResultSet rs = statement.executeQuery(sql);
             return Span.getSpanObjByRs(rs);
         } catch (SQLException e) {
-            logger.error("tree tracer connection pool get result error! sql={}", sql, e);
+            logger.error("dotting tracer connection pool get result error! sql={}", sql, e);
         } finally {
             if(statement != null){
                 try {
                     statement.close();
                     connection.close();
                 } catch (SQLException e) {
-                    logger.error("tree tracer connection pool close statement error for get result! sql={}", sql, e);
+                    logger.error("dotting tracer connection pool close statement error for get result! sql={}", sql, e);
                 }
             }
         }
@@ -66,14 +66,14 @@ public class ConnectionPool {
             ResultSet rs = statement.executeQuery(sql);
             return Span.getSpanObjsByRs(rs);
         } catch (SQLException e) {
-            logger.error("tree tracer connection pool get results error! sql={}", sql, e);
+            logger.error("dotting tracer connection pool get results error! sql={}", sql, e);
         } finally {
             if(statement != null){
                 try {
                     statement.close();
                     connection.close();
                 } catch (SQLException e) {
-                    logger.error("tree tracer connection pool close statement error for get results! sql={}", sql, e);
+                    logger.error("dotting tracer connection pool close statement error for get results! sql={}", sql, e);
                 }
             }
         }
@@ -94,29 +94,29 @@ public class ConnectionPool {
             page.setTotalCount(rsCount.getInt("count"));
             page.setRecords(Span.getSpanObjsByRs(rs));
         } catch (SQLException e) {
-            logger.error("tree tracer connection pool get page results error! sql={}", sql, e);
+            logger.error("dotting tracer connection pool get page results error! sql={}", sql, e);
         } finally {
             if(statement != null){
                 try {
                     statement.close();
                     connection.close();
                 } catch (SQLException e) {
-                    logger.error("tree tracer connection pool close statement error for get page results! sql={}", sql, e);
+                    logger.error("dotting tracer connection pool close statement error for get page results! sql={}", sql, e);
                 }
             }
         }
     }
 
     public static void initConnectionPool() {
-        connectionPool = new dotting.timer.ui.db.ConnectionPool().setDataSource();
+        connectionPool = new ConnectionPool().setDataSource();
     }
 
-    private dotting.timer.ui.db.ConnectionPool setDataSource() {
+    private ConnectionPool setDataSource() {
         this.dataSource = new DruidDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUsername("root");
         dataSource.setPassword("sun123456");
-        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/tree_tracer?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull");
+        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/dotting_tracer?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull");
         dataSource.setMaxActive(20);
         dataSource.setMinIdle(5);
         dataSource.setMaxWait(2000);

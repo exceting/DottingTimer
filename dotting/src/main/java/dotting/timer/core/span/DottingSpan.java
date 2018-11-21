@@ -3,24 +3,25 @@ package dotting.timer.core.span;
 //import com.google.common.base.Charsets;
 //import com.google.common.hash.Hashing;
 
+import dotting.timer.core.builder.DottingSpanContext;
 import io.opentracing.References;
 import io.opentracing.Span;
-import dotting.timer.core.builder.TreeReference;
-import dotting.timer.core.tracer.TreeTracer;
+import dotting.timer.core.builder.DottingReference;
+import dotting.timer.core.tracer.DottingTracer;
 
 import java.util.*;
 
 /**
  * Create by 18073 on 2018/10/29.
  */
-public class TreeSpan implements Span {
+public class DottingSpan implements Span {
 
-    private final TreeTracer treeTracer;
+    private final DottingTracer dottingTracer;
     private final long parentId;
     private final long startTime;
     private final Map<String, Object> tags;
-    private final List<TreeReference> references;
-    private dotting.timer.core.builder.TreeSpanContext context;
+    private final List<DottingReference> references;
+    private DottingSpanContext context;
     private boolean finished;
     private long endTime;
     private boolean sampled;
@@ -30,14 +31,14 @@ public class TreeSpan implements Span {
     private String moudle;
     private String title;
 
-    public TreeSpan(TreeTracer treeTracer, String title, long startTime,
-                    Map<String, Object> initialTags, List<TreeReference> refs,
-                    boolean isAsync, long expect) {
-        this.treeTracer = treeTracer;
+    public DottingSpan(DottingTracer dottingTracer, String title, long startTime,
+                       Map<String, Object> initialTags, List<DottingReference> refs,
+                       boolean isAsync, long expect) {
+        this.dottingTracer = dottingTracer;
         this.title = title;
         this.startTime = startTime;
-        this.moudle = treeTracer.getMoudle();
-        this.sampled = treeTracer.getSampled();
+        this.moudle = dottingTracer.getMoudle();
+        this.sampled = dottingTracer.getSampled();
         this.isAsync = isAsync;
         this.expect = expect;
         if (initialTags == null) {
@@ -50,24 +51,24 @@ public class TreeSpan implements Span {
         } else {
             this.references = new ArrayList<>(refs);
         }
-        dotting.timer.core.builder.TreeSpanContext parent = findPreferredParentRef(this.references);
+        DottingSpanContext parent = findPreferredParentRef(this.references);
         if (parent == null) {
             // 父节点
-            this.context = new dotting.timer.core.builder.TreeSpanContext(makeId(), makeId());
+            this.context = new DottingSpanContext(makeId(), makeId());
             this.parentId = 0;
         } else {
             // 子节点
-            this.context = new dotting.timer.core.builder.TreeSpanContext(parent.getTraceId(), makeId());
+            this.context = new DottingSpanContext(parent.getTraceId(), makeId());
             this.parentId = parent.getSpanId();
         }
     }
 
-    private static dotting.timer.core.builder.TreeSpanContext findPreferredParentRef(List<TreeReference> references) {
+    private static DottingSpanContext findPreferredParentRef(List<DottingReference> references) {
         if (references.isEmpty()) {
             return null;
         }
-        for (dotting.timer.core.builder.TreeReference reference : references) {
-            if (References.CHILD_OF.equals(reference.getTreeReferenceType())) {
+        for (DottingReference reference : references) {
+            if (References.CHILD_OF.equals(reference.getDottingReferenceType())) {
                 return reference.getContext();
             }
         }
@@ -90,7 +91,7 @@ public class TreeSpan implements Span {
         return isAsync;
     }
 
-    public dotting.timer.core.span.TreeSpan setMoudle(String moudle) {
+    public DottingSpan setMoudle(String moudle) {
         this.moudle = moudle;
         return this;
     }
@@ -149,7 +150,7 @@ public class TreeSpan implements Span {
     }
 
     @Override
-    public dotting.timer.core.span.TreeSpan setOperationName(String title) {
+    public DottingSpan setOperationName(String title) {
         if (!finished) {
             this.title = title;
         }
@@ -157,7 +158,7 @@ public class TreeSpan implements Span {
     }
 
     @Override
-    public synchronized dotting.timer.core.builder.TreeSpanContext context() {
+    public synchronized DottingSpanContext context() {
         return this.context;
     }
 
@@ -170,27 +171,27 @@ public class TreeSpan implements Span {
     public synchronized void finish(long endTime) {
         if (!finished) {
             this.endTime = endTime;
-            this.treeTracer.appendFinishedSpan(this);
+            this.dottingTracer.appendFinishedSpan(this);
             this.finished = true;
         }
     }
 
     @Override
-    public dotting.timer.core.span.TreeSpan setTag(String key, String value) {
+    public DottingSpan setTag(String key, String value) {
         return addTag(key, value);
     }
 
     @Override
-    public dotting.timer.core.span.TreeSpan setTag(String key, boolean value) {
+    public DottingSpan setTag(String key, boolean value) {
         return addTag(key, value);
     }
 
     @Override
-    public dotting.timer.core.span.TreeSpan setTag(String key, Number value) {
+    public DottingSpan setTag(String key, Number value) {
         return addTag(key, value);
     }
 
-    private synchronized dotting.timer.core.span.TreeSpan addTag(String key, Object value) {
+    private synchronized DottingSpan addTag(String key, Object value) {
         if (!finished) {
             tags.put(key, value);
         }
@@ -203,17 +204,17 @@ public class TreeSpan implements Span {
     }
 
     @Override
-    public final synchronized dotting.timer.core.span.TreeSpan log(long ts, Map<String, ?> fields) {
+    public final synchronized DottingSpan log(long ts, Map<String, ?> fields) {
         return this;
     }
 
     @Override
-    public dotting.timer.core.span.TreeSpan log(String event) {
+    public DottingSpan log(String event) {
         return this.log(getCurrentTime(), event);
     }
 
     @Override
-    public dotting.timer.core.span.TreeSpan log(long timestampMicroseconds, String event) {
+    public DottingSpan log(long timestampMicroseconds, String event) {
         return this.log(timestampMicroseconds, Collections.singletonMap("event", event));
     }
 

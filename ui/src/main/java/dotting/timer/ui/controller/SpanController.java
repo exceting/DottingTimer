@@ -6,6 +6,7 @@ package dotting.timer.ui.controller;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import dotting.timer.ui.resp.DataResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,12 +25,12 @@ import java.util.Map;
 public class SpanController {
 
     @RequestMapping(value = "/tree", method = RequestMethod.GET)
-    public dotting.timer.ui.resp.DataResult userWatchReport() {
-        return dotting.timer.ui.resp.DataResult.success("rua");
+    public DataResult userWatchReport() {
+        return DataResult.success("rua");
     }
 
     @RequestMapping(value = "/spans", method = RequestMethod.GET)
-    public dotting.timer.ui.resp.DataResult spans(@RequestParam(value = "traceId") int traceId) {
+    public DataResult spans(@RequestParam(value = "traceId") int traceId) {
 
         String sql = String.format("SELECT * FROM t_span_node WHERE trace_id = %s ORDER BY start ASC", traceId);
         List<Span> result = dotting.timer.ui.db.ConnectionPool.connectionPool.getResults(sql);
@@ -45,7 +46,7 @@ public class SpanController {
             });
             makeTree(root, treeMap);
         }
-        return dotting.timer.ui.resp.DataResult.success(root);
+        return DataResult.success(root);
     }
 
     private void makeTree(dotting.timer.ui.po.SpanTree currentSpan, Map<Long, List<Span>> treeMap) {

@@ -176,8 +176,8 @@ public class Span {
         this.short_title = short_title;
     }
 
-    public static dotting.timer.ui.po.Span getSpanObjByRs(ResultSet rs) throws SQLException {
-        dotting.timer.ui.po.Span span = new dotting.timer.ui.po.Span();
+    public static Span getSpanObjByRs(ResultSet rs) throws SQLException {
+        Span span = new Span();
         transToSpan(span, rs);
         return span;
     }
@@ -185,14 +185,14 @@ public class Span {
     public static List<Span> getSpanObjsByRs(ResultSet rs) throws SQLException {
         List<Span> currentSpan = Lists.newArrayList();
         while (rs.next()) {
-            dotting.timer.ui.po.Span span = new dotting.timer.ui.po.Span();
+            Span span = new Span();
             transToSpan(span, rs);
             currentSpan.add(span);
         }
         return currentSpan;
     }
 
-    public static void transToSpan(dotting.timer.ui.po.Span span, ResultSet rs) throws SQLException {
+    public static void transToSpan(Span span, ResultSet rs) throws SQLException {
         span.setId(rs.getLong("id"));
         span.setTrace_id(rs.getLong("trace_id"));
         span.setSpan_id(rs.getLong("span_id"));

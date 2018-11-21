@@ -5,6 +5,8 @@
 
 package dotting.timer.core.push;
 
+import dotting.timer.core.span.DottingSpan;
+
 /**
  * @author sunqinwen
  * @version \: PushHandler.java,v 0.1 2018-09-20 19:12
@@ -12,6 +14,6 @@ package dotting.timer.core.push;
  */
 public interface PushHandler {
 
-    void pushSpan(dotting.timer.core.span.TreeSpan span);
+    void pushSpan(DottingSpan span);
 
 }
