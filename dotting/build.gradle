@@ -1,0 +1,55 @@
+apply plugin: 'java'
+apply plugin: 'maven' // 引入maven插件
+
+buildscript {
+    ext {
+        springBootVersion = '1.5.6.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+}
+
+group 'dotting.timer'
+version = '1.0.0-RELEASE'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'io.opentracing', name: 'opentracing-api', version: '0.31.0'
+    compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
+    compile group: 'com.alibaba', name: 'transmittable-thread-local', version: '2.9.0'
+    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.9.2'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'com.alibaba', name: 'druid', version: '1.1.12'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: localMavenRepo)
+            pom.project {
+                name = project.name
+                packaging = 'jar'
+                description = 'description'
+            }
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+jar {
+    baseName "dotting-timer"
+    version "0.0.1"
+}

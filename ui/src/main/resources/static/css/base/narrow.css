@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: ImmeHybrid;
+	src: local("Microsoft Yahei"), local("STXihei");
+	unicode-range: U+4E00-9FFF;
+}
+
+@font-face {
+	font-family: ImmeHybrid;
+	src: local(Arial), local(Helvetica), local(Segoe UI) ;
+	unicode-range: U+00-024F;
+}
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+	font-family: ImmeHybrid, "Microsoft Yahei", "STXihei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+/* Custom page header */
+.header {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  font-size: 16px;
+}
+.jumbotron p {
+  font-size: 17px;
+}
+
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}

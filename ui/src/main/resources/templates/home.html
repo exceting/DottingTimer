@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>TreeTracer UI test</title>
+    <link rel="icon" type="image/x-icon" href="/image/icon.ico">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/css/lib/bootstrap/3.3.4/bootstrap-delta.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="/css/base/dashboard.css">
+</head>
+
+<body style="word-break:break-all;">
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="main">
+            <ol id="locationTip" class="breadcrumb">
+            </ol>
+            <!-- page -->
+            <div id="page" style="margin-top: 160px"></div>
+
+        </div>
+        <!-- end of main -->
+    </div>
+    <!-- end of row -->
+</div>
+<!-- end of fluid container -->
+<!-- Processing Bar Modal -->
+<div class="modal fade" id="processingModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">正在处理请求，请稍等</h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active" style="width: 95%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- frameworks -->
+<script src="/ng/lib/framework/jquery/1.11.3/jquery.js"></script>
+<script src="/ng/lib/framework/underscore/1.8.3/underscore.js"></script>
+<script src="/ng/lib/framework/backbone/1.2.1/backbone.js"></script>
+<script src="/ng/lib/framework/sugarjs/1.4.1/sugar.js"></script>
+<script src="/ng/lib/framework/bootstrap/3.3.4/bootstrap.js"></script>
+<!-- include 'sea.js' and boot front end app -->
+<script src="/ng/lib/framework/seajs/3.0.0/sea.js" id="seajsnode"></script>
+<script src="/ng/lib/framework/seajs-text/1.0.2/seajs-text.js"></script>
+<script src="/ng/lib/framework/seajs-css/1.0.5/seajs-css.js"></script>
+<script src="/ng/lib/framework/xiuxiu/xiuxiu.js"></script>
+<script src="/ng/lib/plugin/bootbox/4.4.0/bootbox.js"></script>
+
+<script type="text/javascript">
+    // Set configuration
+    seajs.config({
+        base : "./ng/",
+        charset : 'utf-8'
+    });
+
+    seajs.use("boot/ContractBooter");
+</script>
+</body>
+</html>
