@@ -39,7 +39,7 @@ public class DottingTracerProxy {
         ConnectionPool.initConnectionPool(driver, user, password, url);
     }
 
-    @Pointcut("@annotation(DottingNode)")
+    @Pointcut("@annotation(dotting.timer.core.annos.DottingNode)")
     public void dottingNode() {
     }
 

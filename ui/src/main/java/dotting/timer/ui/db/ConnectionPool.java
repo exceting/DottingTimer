@@ -96,9 +96,10 @@ public class ConnectionPool {
         } catch (SQLException e) {
             logger.error("dotting tracer connection pool get page results error! sql={}", sql, e);
         } finally {
-            if(statement != null){
+            if(statement != null && statementCount != null){
                 try {
                     statement.close();
+                    statementCount.close();
                     connection.close();
                 } catch (SQLException e) {
                     logger.error("dotting tracer connection pool close statement error for get page results! sql={}", sql, e);
@@ -116,7 +117,7 @@ public class ConnectionPool {
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUsername("root");
         dataSource.setPassword("sun123456");
-        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/dotting_tracer?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull");
+        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/tree_tracer?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull");
         dataSource.setMaxActive(20);
         dataSource.setMinIdle(5);
         dataSource.setMaxWait(2000);
