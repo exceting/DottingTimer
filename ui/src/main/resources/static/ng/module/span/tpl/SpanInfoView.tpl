@@ -7,6 +7,17 @@
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	ps：点击节点可查看详细信息
 </div>
-<div class="tree_tracer">
 
+<div class="tree_well">
+<center><h3>同步区（主线程）</h3></center>
+<div class="master tree_tracer">
+
+</div>
+</div>
+
+<div class="tree_well">
+<center><h3>异步区（子线程）</h3></center>
+<div class="slave tree_tracer">
+
+</div>
 </div>

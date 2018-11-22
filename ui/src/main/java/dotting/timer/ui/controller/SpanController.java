@@ -10,6 +10,7 @@ import dotting.timer.ui.db.ConnectionPool;
 import dotting.timer.ui.po.Span;
 import dotting.timer.ui.po.SpanTree;
 import dotting.timer.ui.resp.DataResult;
+import dotting.timer.ui.vo.SpanTrees;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,18 +38,32 @@ public class SpanController {
         String sql = String.format("SELECT * FROM t_span_node WHERE trace_id = %s ORDER BY start ASC", traceId);
         List<Span> result = ConnectionPool.connectionPool.getResults(sql);
         Map<Long, List<Span>> treeMap = Maps.newTreeMap();
-        SpanTree root = new SpanTree();
+        SpanTree masterThread = new SpanTree();
+        List<SpanTree> slaveThread = Lists.newArrayList();
+        List<Span> slaveSpan = Lists.newArrayList();
         if (result != null) {
             result.forEach(r -> {
                 if (r.getParent_id() == 0) {
-                    root.setNode(r);
+                    if(r.getIs_async() == 0){
+                        masterThread.setNode(r);
+                    }else{
+                        slaveSpan.add(r);
+                    }
                 }
                 treeMap.computeIfAbsent(r.getParent_id(), k -> Lists.newArrayList());
                 treeMap.get(r.getParent_id()).add(r);
             });
-            makeTree(root, treeMap);
+            // 主线程链路
+            makeTree(masterThread, treeMap);
+            // 子线程链路
+            slaveSpan.forEach(s->{
+                SpanTree slave = new SpanTree();
+                slave.setNode(s);
+                makeTree(slave, treeMap);
+                slaveThread.add(slave);
+            });
         }
-        return DataResult.success(root);
+        return DataResult.success(SpanTrees.build(masterThread, slaveThread));
     }
 
     private void makeTree(SpanTree currentSpan, Map<Long, List<Span>> treeMap) {

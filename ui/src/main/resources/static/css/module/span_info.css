@@ -1,5 +1,11 @@
+.tree_well{
+    width: 100%;
+    float: left;
+}
 .tree_tracer{
     margin: 0 auto;
+    height: auto;
+    min-height: 100px;
 }
 .tree_tracer ul {
     padding-top: 20px;

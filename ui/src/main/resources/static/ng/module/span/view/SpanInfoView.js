@@ -25,8 +25,14 @@ define(function (require, exports, module) {
             this.model.getSpanInfo().done(function (resp) {
                 if (resp.code == 0) {
                     if (resp.data != null && resp.data != undefined) {
-                        view.makeTree(resp.data);
-                        view.$el.find('.tree_tracer').html(view.model.htm);
+                        view.makeTree(resp.data.masterThread);
+                        view.$el.find('.master').html(view.model.htm);
+                        view.model.htm = "";//清理
+                        for (var i = 0; i < resp.data.slaveThread; i++) {
+                            view.makeTree(resp.data.slaveThread[i]);
+                            view.$el.find('.slave').html(view.model.htm);
+                            view.model.htm = "";//清理
+                        }
                     } else {
                         view.$el.find('.v_tag_name_text').text("未找到");
                     }
@@ -38,34 +44,34 @@ define(function (require, exports, module) {
 
         makeTree: function (treeNode) {
             var view = this;
-            if(treeNode != null && treeNode.node != null){
-                if(treeNode.node.parent_id === 0){
-                    view.model.htm+="<ul>";
+            if (treeNode != null && treeNode.node != null) {
+                if (treeNode.node.parent_id === 0) {
+                    view.model.htm += "<ul>";
                 }
-                if(treeNode.node.is_error){
-                    view.model.htm+="<li><a href='#' style='border: 1px #ff605a solid; background-color: #ffc7bb'>";
-                }else{
-                    if(treeNode.node.duration <= treeNode.node.expect){
-                        view.model.htm+="<li><a href='#' style='border: 1px #00c100 solid; background-color: #bcffbc'>";
-                    }else if(treeNode.node.duration > treeNode.node.expect){
-                        view.model.htm+="<li><a href='#' style='border: 1px #ff9601 solid; background-color: #ffe76e'>";
+                if (treeNode.node.is_error) {
+                    view.model.htm += "<li><a href='#' style='border: 1px #ff605a solid; background-color: #ffc7bb'>";
+                } else {
+                    if (treeNode.node.duration <= treeNode.node.expect) {
+                        view.model.htm += "<li><a href='#' style='border: 1px #00c100 solid; background-color: #bcffbc'>";
+                    } else if (treeNode.node.duration > treeNode.node.expect) {
+                        view.model.htm += "<li><a href='#' style='border: 1px #ff9601 solid; background-color: #ffe76e'>";
                     }
                 }
-                view.model.htm+=treeNode.node.short_title+"(期望:<span style='color:#12c58c'>"+treeNode.node.expect+"ms</span>,耗时:<span style='color:#ff6fb7'>"+treeNode.node.duration+"ms</span>)</a>";
-                if(treeNode.child != null && treeNode.child.length > 0){
-                    for(var i = 0; i < treeNode.child.length; i++){
-                        if(i === 0){
-                            view.model.htm+="<ul>";
+                view.model.htm += treeNode.node.short_title + "(期望:<span style='color:#12c58c'>" + treeNode.node.expect + "ms</span>,耗时:<span style='color:#ff6fb7'>" + treeNode.node.duration + "ms</span>)</a>";
+                if (treeNode.child != null && treeNode.child.length > 0) {
+                    for (var i = 0; i < treeNode.child.length; i++) {
+                        if (i === 0) {
+                            view.model.htm += "<ul>";
                         }
                         view.makeTree(treeNode.child[i]);
-                        if((treeNode.child.length - 1) === i){
-                            view.model.htm+="</ul>";
+                        if ((treeNode.child.length - 1) === i) {
+                            view.model.htm += "</ul>";
                         }
                     }
                 }
-                view.model.htm+="</li>";
-                if(treeNode.node.parent_id === 0){
-                    view.model.htm+="</ul>";
+                view.model.htm += "</li>";
+                if (treeNode.node.parent_id === 0) {
+                    view.model.htm += "</ul>";
                 }
             }
         }
