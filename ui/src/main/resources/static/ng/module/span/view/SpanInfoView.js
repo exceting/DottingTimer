@@ -28,9 +28,9 @@ define(function (require, exports, module) {
                         view.makeTree(resp.data.masterThread);
                         view.$el.find('.master').html(view.model.htm);
                         view.model.htm = "";//清理
-                        for (var i = 0; i < resp.data.slaveThread; i++) {
+                        for (var i = 0; i < resp.data.slaveThread.length; i++) {
                             view.makeTree(resp.data.slaveThread[i]);
-                            view.$el.find('.slave').html(view.model.htm);
+                            view.$el.find('.slave').append(view.model.htm);
                             view.model.htm = "";//清理
                         }
                     } else {

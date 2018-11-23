@@ -54,7 +54,11 @@ public class DottingSpan implements Span {
         DottingSpanContext parent = findPreferredParentRef(this.references);
         if (parent == null) {
             // 父节点
-            this.context = new DottingSpanContext(makeId(), makeId());
+            Long traceId = dottingTracer.getTraceId();
+            if(traceId == null){
+                dottingTracer.setTraceId(makeId());
+            }
+            this.context = new DottingSpanContext(dottingTracer.getTraceId(), makeId());
             this.parentId = 0;
         } else {
             // 子节点

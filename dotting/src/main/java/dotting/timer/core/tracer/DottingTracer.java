@@ -24,12 +24,21 @@ public class DottingTracer implements Tracer {
     private boolean isDebug;
     private boolean sampled;
     private boolean includeAsync;
+    private Long traceId;
 
 
     public DottingTracer(boolean sampled, String moudle, boolean isDebug) {
         this.moudle = moudle;
         this.sampled = isDebug || sampled;
         this.isDebug = isDebug;
+    }
+
+    public void setTraceId(Long traceId){
+        this.traceId = traceId;
+    }
+
+    public Long getTraceId() {
+        return traceId;
     }
 
     public boolean getSampled() {
@@ -95,7 +104,7 @@ public class DottingTracer implements Tracer {
                 finished.stream().filter(DottingSpan::getSampled).forEach(f -> {
                     System.out.println(f.toString());
                     PushHandler pushHandler = PushHandlerManager.getHandler(isDebug, PushUtils.DBTYPE_MYSQL);
-                    if(pushHandler != null){
+                    if (pushHandler != null) {
                         pushHandler.pushSpan(f);
                     }
                 });
