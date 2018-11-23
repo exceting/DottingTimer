@@ -81,7 +81,7 @@ public class DottingTracerProxy {
                         currentSpan, dottingNode.moudle(), Thread.currentThread());
                 DottingTracerContextHolder.setContext(currentContext);
             } else {
-                if (currentTracer == null || parentSpan == null || parentSpan.context() == null) {
+                if (currentTracer == null) {
                     return;
                 }
                 String className = joinPoint.getTarget().getClass().getName();
@@ -94,6 +94,9 @@ public class DottingTracerProxy {
                 DottingSpan currentSpan;
 
                 if (context.isMainThread()) {
+                    if (parentSpan == null || parentSpan.context() == null) {
+                        return;
+                    }
                     DottingSpanContext dottingSpanContext = new DottingSpanContext(parentSpan.context().getTraceId(),
                             parentSpan.context().getSpanId());
                     currentSpan = currentTracer.buildSpan(finalMethod)
