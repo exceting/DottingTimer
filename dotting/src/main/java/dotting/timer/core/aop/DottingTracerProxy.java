@@ -91,12 +91,24 @@ public class DottingTracerProxy {
                 }
                 finalMethod = String.format("%s.%s", className, finalMethod);
 
-                DottingSpan currentSpan;
+                DottingSpan currentSpan = null;
 
                 if (context.isMainThread()) {
                     if (parentSpan == null || parentSpan.context() == null) {
                         return;
                     }
+                } else {
+                    if (parentSpan == null || parentSpan.context() == null) {
+                        currentSpan = currentTracer.buildSpan(finalMethod)
+                                .setExpect(dottingNode.expect())
+                                .setIsAsync(true)
+                                .withTag(SpanTags.PRO_NAME, dottingNode.moudle())
+                                .withTag(SpanTags.CLASS_NAME, className)
+                                .withTag(SpanTags.MEHODE_NAME, finalMethod)
+                                .start();
+                    }
+                }
+                if (currentSpan == null) {
                     DottingSpanContext dottingSpanContext = new DottingSpanContext(parentSpan.context().getTraceId(),
                             parentSpan.context().getSpanId());
                     currentSpan = currentTracer.buildSpan(finalMethod)
@@ -104,14 +116,6 @@ public class DottingTracerProxy {
                             .setExpect(dottingNode.expect())
                             .withTag(SpanTags.PRO_NAME, Strings.isNullOrEmpty(dottingNode.moudle()) ?
                                     currentTracer.getMoudle() : dottingNode.moudle())
-                            .withTag(SpanTags.CLASS_NAME, className)
-                            .withTag(SpanTags.MEHODE_NAME, finalMethod)
-                            .start();
-                } else {
-                    currentSpan = currentTracer.buildSpan(finalMethod)
-                            .setExpect(dottingNode.expect())
-                            .setIsAsync(true)
-                            .withTag(SpanTags.PRO_NAME, dottingNode.moudle())
                             .withTag(SpanTags.CLASS_NAME, className)
                             .withTag(SpanTags.MEHODE_NAME, finalMethod)
                             .start();
