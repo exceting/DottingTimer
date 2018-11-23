@@ -26,11 +26,11 @@ define(function (require, exports, module) {
                 if (resp.code == 0) {
                     if (resp.data != null && resp.data != undefined) {
                         view.makeTree(resp.data.masterThread);
-                        view.$el.find('.master').html(view.model.htm);
+                        view.$el.find('.master').html("<div class='tree_well'>" + view.model.htm + "</div>");
                         view.model.htm = "";//清理
                         for (var i = 0; i < resp.data.slaveThread.length; i++) {
                             view.makeTree(resp.data.slaveThread[i]);
-                            view.$el.find('.slave').append(view.model.htm);
+                            view.$el.find('.slave').append("<div class='tree_well'>" + view.model.htm + "</div>");
                             view.model.htm = "";//清理
                         }
                     } else {

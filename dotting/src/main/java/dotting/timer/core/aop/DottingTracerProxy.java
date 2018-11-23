@@ -143,7 +143,7 @@ public class DottingTracerProxy {
                 return;
             }
             currentSpan.finish();
-            if (dottingNode.root() && context.isAllSpansFinished()) {
+            if (currentSpan.getParentId() == 0 && context.isAllSpansFinished()) {
                 DottingTracerContextHolder.removeContext();
                 currentTracer.pushSpans();
             }
@@ -175,7 +175,7 @@ public class DottingTracerProxy {
                     .setTag(SpanTags.ERROR_MSG, e.getMessage())
                     .setError(true);
             currentSpan.finish();
-            if (dottingNode.root()) {
+            if (currentSpan.getParentId() == 0) {
                 currentTracer.pushSpans();
             }
         } catch (Exception ec) {
