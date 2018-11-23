@@ -1,3 +1,12 @@
+.tree_unit{
+    width: 100%;
+    float: left;
+    border: 1px solid #d9d9d9;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px;
+}
 .tree_well{
     width: 100%;
     float: left;
