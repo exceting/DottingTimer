@@ -28,9 +28,9 @@ public class TraceController {
                                       @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
                                       @RequestParam(value = "traceId", required = false, defaultValue = "-1") long traceId) throws SQLException {
         Page<Span> result = new Page<>(pageNo, pageSize);
-        String sql = String.format("SELECT * FROM t_span_node WHERE parent_id = 0 AND is_async = 1 %s ORDER BY ctime DESC LIMIT %s, %s", traceId == -1 ? "" :
+        String sql = String.format("SELECT * FROM t_span_node WHERE parent_id = 0 AND is_async != 1 %s ORDER BY ctime DESC LIMIT %s, %s", traceId == -1 ? "" :
                 String.format("AND trace_id = %s", traceId), (pageNo - 1) * pageSize, pageSize);
-        String sqlCount = String.format("SELECT COUNT(*) AS count FROM t_span_node WHERE parent_id = 0 AND is_async = 1 %s", traceId == -1 ? "" :
+        String sqlCount = String.format("SELECT COUNT(*) AS count FROM t_span_node WHERE parent_id = 0 AND is_async != 1 %s", traceId == -1 ? "" :
                 String.format("AND trace_id = %s", traceId));
         ConnectionPool.connectionPool.getPageResults(result, sql, sqlCount);
         return DataResult.success(result);
