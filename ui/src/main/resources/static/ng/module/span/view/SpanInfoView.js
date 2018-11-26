@@ -26,7 +26,7 @@ define(function (require, exports, module) {
                 if (resp.code == 0) {
                     if (resp.data != null && resp.data != undefined) {
                         view.makeTree(resp.data.masterThread);
-                        view.$el.find('.master').html("<div class='tree_unit'>" + view.model.htm + "</div>");
+                        view.$el.find('.master').html("<div class='panel panel-default'><div class='panel-heading'>主线程</div><div class='panel-body'>" + view.model.htm + "</div></div>");
                         view.model.htm = "";//清理
                         for (var i = 0; i < resp.data.slaveThread.length; i++) {
                             view.makeTree(resp.data.slaveThread[i]);
