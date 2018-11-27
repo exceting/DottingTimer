@@ -4,12 +4,15 @@ package dotting.timer.core.span;
 //import com.google.common.hash.Hashing;
 
 import dotting.timer.core.builder.DottingSpanContext;
+import dotting.timer.core.context.DottingTracerContext;
+import dotting.timer.core.context.DottingTracerContextHolder;
 import io.opentracing.References;
 import io.opentracing.Span;
 import dotting.timer.core.builder.DottingReference;
 import dotting.timer.core.tracer.DottingTracer;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Create by 18073 on 2018/10/29.
@@ -30,6 +33,12 @@ public class DottingSpan implements Span {
     private boolean isAsync;
     private String moudle;
     private String title;
+
+    private AtomicLong counter = new AtomicLong();
+    private AtomicLong totalTime = new AtomicLong();
+    private long maxTime;
+    private long minTime;
+    private long avg;
 
     public DottingSpan(DottingTracer dottingTracer, String title, long startTime,
                        Map<String, Object> initialTags, List<DottingReference> refs,
@@ -55,7 +64,7 @@ public class DottingSpan implements Span {
         if (parent == null) {
             // 父节点
             Long traceId = dottingTracer.getTraceId();
-            if(traceId == null){
+            if (traceId == null) {
                 dottingTracer.setTraceId(makeId());
             }
             this.context = new DottingSpanContext(dottingTracer.getTraceId(), makeId());
@@ -136,20 +145,60 @@ public class DottingSpan implements Span {
         return this.title;
     }
 
-    static long makeId() {
+    public DottingSpan initMerge(long time) {
+        maxTime = time;
+        minTime = time;
+        return incre(time);
+    }
+
+    public DottingSpan setMaxTime(long time) {
+        if (time > maxTime) {
+            this.maxTime = time;
+        }
+        return this;
+    }
+
+    public long getMaxTime() {
+        return maxTime;
+    }
+
+    public DottingSpan setMinTime(long time) {
+        if (time < minTime) {
+            this.minTime = time;
+        }
+        return this;
+    }
+
+    public long getMinTime() {
+        return minTime;
+    }
+
+    public DottingSpan incre(long time) {
+        Long nowTotal = totalTime.addAndGet(time);
+        Long nowCount = counter.incrementAndGet();
+        this.avg = Math.round(nowTotal / nowCount);
+        return this;
+    }
+
+    public long count() {
+        return counter.get();
+    }
+
+    public long getAvg() {
+        return avg;
+    }
+
+    private static long makeId() {
         return UUID.randomUUID().hashCode();
        /* Long id = Hashing.farmHashFingerprint64().hashString(UUID.randomUUID().toString(), Charsets.UTF_8).asLong();
         return id < 0 ? id * -1 : id;*/
     }
 
     public static long getCurrentTime() {
-        return System.currentTimeMillis() * 1000000;
+        return System.currentTimeMillis();
     }
 
     public long getEndTime() {
-        if (!finished) {
-            return 0L;
-        }
         return endTime;
     }
 
@@ -175,8 +224,15 @@ public class DottingSpan implements Span {
     public synchronized void finish(long endTime) {
         if (!finished) {
             this.endTime = endTime;
-            this.dottingTracer.appendFinishedSpan(this);
-            this.finished = true;
+            DottingTracerContext context = DottingTracerContextHolder.getContext();
+            if (context == null) {
+                return;
+            }
+            if (!context.canMerge(this)) {
+
+                this.dottingTracer.appendFinishedSpan(this);
+                this.finished = true;
+            }
         }
     }
 

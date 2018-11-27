@@ -18,9 +18,11 @@ public class DottingTracerContext {
 
     private Thread mainThread;
 
+    private String family;
+
     private Map<Thread, LinkedList<DottingSpan>> spans = Maps.newConcurrentMap();
 
-    private String family;
+    private Map<String, DottingSpan> merge = Maps.newHashMap();
 
     private DottingTracerContext(DottingTracer dottingTracer, DottingSpan currentSpan, String family, Thread mainThread) {
         this.mainThread = mainThread;
@@ -63,7 +65,7 @@ public class DottingTracerContext {
         this.mainThread = mainThread;
     }
 
-    public boolean isAllSpansFinished(){
+    public boolean isAllSpansFinished() {
         return spans != null && spans.get(Thread.currentThread()).size() == 0;
     }
 
@@ -105,5 +107,17 @@ public class DottingTracerContext {
         }
         nowSpans.add(currentSpan);
         spans.put(Thread.currentThread(), nowSpans);
+    }
+
+    public synchronized boolean canMerge(DottingSpan currentSpan) {
+        String key = String.format("%s:%s", currentSpan.getParentId(), currentSpan.getTitle());
+        DottingSpan mergeSpan = merge.get(key);
+        long duration = currentSpan.getEndTime() - currentSpan.getStartTime();
+        if (mergeSpan != null) {
+            mergeSpan.setMaxTime(duration).setMinTime(duration).incre(duration);
+            return true;
+        }
+        merge.put(key, currentSpan.initMerge(duration));
+        return false;
     }
 }

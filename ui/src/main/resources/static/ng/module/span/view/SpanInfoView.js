@@ -57,7 +57,11 @@ define(function (require, exports, module) {
                         view.model.htm += "<li><a href='#' style='border: 1px #ff9601 solid; background-color: #ffe76e'>";
                     }
                 }
-                view.model.htm += treeNode.node.short_title + "(期望:<span style='color:#12c58c'>" + treeNode.node.expect + "ms</span>,耗时:<span style='color:#ff6fb7'>" + treeNode.node.duration + "ms</span>)</a>";
+                if(treeNode.node.merge > 1){
+                    view.model.htm += treeNode.node.short_title + "(循环次数:<span style='color:#12c58c'>" + treeNode.node.merge + "</span>,平均耗时:<span style='color:#ff6fb7'>" + treeNode.node.avg_duration + "ms</span>,最小耗时:<span style='color:#ff6fb7'>" + treeNode.node.min_duration + "ms</span>,最大耗时:<span style='color:#ff6fb7'>" + treeNode.node.max_duration + "ms</span>)</a>";
+                }else{
+                    view.model.htm += treeNode.node.short_title + "(期望:<span style='color:#12c58c'>" + treeNode.node.expect + "ms</span>,耗时:<span style='color:#ff6fb7'>" + treeNode.node.avg_duration + "ms</span>)</a>";
+                }
                 if (treeNode.child != null && treeNode.child.length > 0) {
                     for (var i = 0; i < treeNode.child.length; i++) {
                         if (i === 0) {

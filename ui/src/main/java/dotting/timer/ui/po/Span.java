@@ -48,6 +48,14 @@ public class Span {
 
     private int duration;
 
+    private int merge;
+
+    private int avg_duration;
+
+    private int min_duration;
+
+    private int max_duration;
+
     public long getId() {
         return id;
     }
@@ -176,6 +184,38 @@ public class Span {
         this.short_title = short_title;
     }
 
+    public int getMerge() {
+        return merge;
+    }
+
+    public void setMerge(int merge) {
+        this.merge = merge;
+    }
+
+    public int getAvg_duration() {
+        return avg_duration;
+    }
+
+    public void setAvg_duration(int avg_duration) {
+        this.avg_duration = avg_duration;
+    }
+
+    public int getMin_duration() {
+        return min_duration;
+    }
+
+    public void setMin_duration(int min_duration) {
+        this.min_duration = min_duration;
+    }
+
+    public int getMax_duration() {
+        return max_duration;
+    }
+
+    public void setMax_duration(int max_duration) {
+        this.max_duration = max_duration;
+    }
+
     public static Span getSpanObjByRs(ResultSet rs) throws SQLException {
         Span span = new Span();
         transToSpan(span, rs);
@@ -199,7 +239,7 @@ public class Span {
         span.setParent_id(rs.getLong("parent_id"));
         span.setStart(rs.getLong("start"));
         span.setEnd(rs.getLong("end"));
-        span.setDuration(Math.round((span.getEnd() - span.getStart())/1000000));
+        span.setDuration(Math.round((span.getEnd() - span.getStart())));
         span.setIs_async(rs.getInt("is_async"));
         span.setIs_error(rs.getInt("is_error"));
         span.setExpect(rs.getInt("expect"));
@@ -211,5 +251,9 @@ public class Span {
         span.setShort_title(title.substring(title.lastIndexOf('.') + 1, title.length()));
         span.setTags(rs.getString("tags"));
         span.setCtime(rs.getString("ctime"));
+        span.setMerge(rs.getInt("merge"));
+        span.setAvg_duration(rs.getInt("avg_duration"));
+        span.setMin_duration(rs.getInt("min_duration"));
+        span.setMax_duration(rs.getInt("max_duration"));
     }
 }

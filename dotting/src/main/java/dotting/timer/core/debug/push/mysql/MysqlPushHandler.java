@@ -46,7 +46,7 @@ public class MysqlPushHandler implements PushHandler {
                 try {
                     span = queue.take();
                     if (ConnectionPool.connectionPool != null) {
-                        String sql = String.format("INSERT INTO t_span_node(trace_id, span_id, parent_id, start, end, is_async, is_error, expect, moudle, title, tags) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, '%s', '%s', '%s');",
+                        String sql = String.format("INSERT INTO t_span_node(trace_id, span_id, parent_id, start, end, is_async, is_error, expect, moudle, title, tags, merge, avg_duration, min_duration, max_duration) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, '%s', '%s', '%s', %s, %s, %s, %s);",
                                 span.context().getTraceId(),
                                 span.context().getSpanId(),
                                 span.getParentId(),
@@ -57,7 +57,11 @@ public class MysqlPushHandler implements PushHandler {
                                 span.getExpect(),
                                 span.getMoudle(),
                                 span.getTitle(),
-                                span.getTags() != null ? span.getTags().toString() : "");
+                                span.getTags() != null ? span.getTags().toString() : "",
+                                span.count(),
+                                span.getAvg(),
+                                span.getMinTime(),
+                                span.getMaxTime());
                         ConnectionPool.connectionPool.writeResult(sql);
                     }
                 } catch (Exception e) {
