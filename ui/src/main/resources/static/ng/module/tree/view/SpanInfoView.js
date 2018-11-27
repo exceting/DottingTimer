@@ -29,7 +29,7 @@ define(function (require, exports, module) {
                 if (resp.code == 0) {
                     if (resp.data != null && resp.data != undefined) {
                         view.makeTree(view.model.tree_nodes, resp.data.masterThread);
-                        view.$el.find(".master").append("<div class='chart-container' id='master_tree'></div>")
+                        view.$el.find(".master").append("<div class='chart-container' id='master_tree'><div class='master-chart-badge'><span class='glyphicon glyphicon-tree-conifer'></span>&nbsp;&nbsp;链路主线程</div></div>")
                         $('#master_tree').orgchart({
                             'data': view.model.tree_nodes,
                             'nodeContent': 'title'
@@ -40,7 +40,7 @@ define(function (require, exports, module) {
                         view.model.tree_nodes = {};//清理
                         for (var i = 0; i < slaveNum; i++) {
                             view.makeTree(view.model.tree_nodes, resp.data.slaveThread[i]);
-                            view.$el.find('.slave').append("<div class='chart-container' id='slave_tree_" + i + "'></div>");
+                            view.$el.find('.slave').append("<div class='chart-container' id='slave_tree_" + i + "'><div class='slave-chart-badge'><span class='glyphicon glyphicon-leaf'></span>&nbsp;&nbsp;链路"+(i+1)+"号子线程</div></div>");
                             $('#slave_tree_' + i).orgchart({
                                 'data': view.model.tree_nodes,
                                 'nodeContent': 'title'

@@ -8,14 +8,15 @@
 </div>
 
 <div class="tree_well">
-<center><h3>同步区（主线程）</h3></center>
+<center><h3>同步区</h3></center>
 <div class="master">
 
 </div>
 </div>
 
 <div class="tree_well">
-<center><h3>异步区（该链路共产生了<span class="async_num" style="font-weight: bolder; color: #ff748b"></span>个子线程异步程序）</h3></center>
+<center><h3>异步区</h3><br/>
+	<h4>该链路共产生了<span class="async_num" style="font-weight: bolder; color: #ff748b"></span>个子线程异步程序</h4></center>
 <div class="slave">
 
 </div>
