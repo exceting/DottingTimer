@@ -46,7 +46,7 @@ define(function(require, exports, module) {
         renderSpanInfo: function (id) {
             var app = this;
 
-            require.async('module/span/SpanInfoPage', function (SpanInfoPage) {
+            require.async('module/tree/SpanInfoPage', function (SpanInfoPage) {
                 if (!(app.lastPage instanceof SpanInfoPage)) {
                     app.reset();
                     app.lastPage = new SpanInfoPage({
