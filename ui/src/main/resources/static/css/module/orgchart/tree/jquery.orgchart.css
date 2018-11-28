@@ -123,14 +123,11 @@
 }
 
 .orgchart .node:hover {
-  background-color: rgba(238, 217, 54, 0.5);
+  box-shadow: 0 0 15px #757575;
   transition: .5s;
-  cursor: default;
+  border-radius: 4px;
+  cursor: pointer;
   z-index: 20;
-}
-
-.orgchart .node.focused {
-  background-color: rgba(238, 217, 54, 0.5);
 }
 
 .orgchart .node.allowedDrop {
