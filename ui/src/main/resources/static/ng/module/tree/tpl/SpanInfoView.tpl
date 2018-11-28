@@ -1,4 +1,4 @@
-<center><h1>链路详情</h1></center>
+<center><h1><img src="/images/dou_bili.gif"/>链路详情</h1></center>
 <div class="alert alert-dismissable" style="padding-left:100px">
 	图例：<span class="label label-success">正常</span>
 	<span class="label label-warning">超出预期</span>
