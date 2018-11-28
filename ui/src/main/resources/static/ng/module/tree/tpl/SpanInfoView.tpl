@@ -1,5 +1,5 @@
 <center><h1><img src="/images/dou_bili.gif" height="35px"/>链路详情<img src="/images/dou_bili.gif" height="35px"/></h1></center>
-<div class="alert alert-dismissable" style="padding-left:100px">
+<div class="alert alert-warning alert-dismissable" style="padding-left:100px">
 	图例：<span class="label label-success">正常</span>
 	<span class="label label-warning">超出预期</span>
 	<span class="label label-danger">异常</span>
