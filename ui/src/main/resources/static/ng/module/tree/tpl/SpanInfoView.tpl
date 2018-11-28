@@ -1,4 +1,4 @@
-<center><h1><img src="/images/dou_bili.gif"/>链路详情<img src="/images/dou_bili.gif"/></h1></center>
+<center><h1><img src="/images/dou_bili.gif" height="35px"/>链路详情<img src="/images/dou_bili.gif" height="35px"/></h1></center>
 <div class="alert alert-dismissable" style="padding-left:100px">
 	图例：<span class="label label-success">正常</span>
 	<span class="label label-warning">超出预期</span>
@@ -8,14 +8,14 @@
 </div>
 
 <div class="tree_well">
-<center><h3>同步区</h3></center>
+<center><h3><img src="/images/dou_bili.gif" height="25px"/><同步区><img src="/images/dou_bili.gif" height="25px"/></h3></center>
 <div class="master">
 
 </div>
 </div>
 
 <div class="tree_well">
-<center><h3>异步区</h3><br/>
+<center><h3><img src="/images/dou_bili.gif" height="25px"/><异步区><img src="/images/dou_bili.gif" height="25px"/></h3><br/>
 	<h4>该链路共产生了<span class="async_num" style="font-weight: bolder; color: #ff748b"></span>个子线程异步程序</h4></center>
 <div class="slave">
 
