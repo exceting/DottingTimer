@@ -102,7 +102,6 @@ public class DottingTracer implements Tracer {
             List<DottingSpan> finished = this.finishedSpans;
             if (finished.size() > 0) {
                 finished.stream().filter(DottingSpan::getSampled).forEach(f -> {
-                    System.out.println(f.toString());
                     PushHandler pushHandler = PushHandlerManager.getHandler(isDebug, PushUtils.DBTYPE_MYSQL);
                     if (pushHandler != null) {
                         pushHandler.pushSpan(f);
