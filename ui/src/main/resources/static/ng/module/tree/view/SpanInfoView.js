@@ -40,7 +40,7 @@ define(function (require, exports, module) {
                         view.model.tree_nodes = {};//清理
                         for (var i = 0; i < slaveNum; i++) {
                             view.makeTree(view.model.tree_nodes, resp.data.slaveThread[i]);
-                            view.$el.find('.slave').append("<div class='chart-container' id='slave_tree_" + i + "'><div class='slave-chart-badge'><span class='glyphicon glyphicon-leaf'></span>&nbsp;&nbsp;链路"+(i+1)+"号子线程</div></div>");
+                            view.$el.find('.slave').append("<div class='chart-container' id='slave_tree_" + i + "'><div class='slave-chart-badge'><span class='glyphicon glyphicon-leaf'></span>&nbsp;&nbsp;链路" + (i + 1) + "号子线程</div></div>");
                             $('#slave_tree_' + i).orgchart({
                                 'data': view.model.tree_nodes,
                                 'nodeContent': 'title'
@@ -61,13 +61,13 @@ define(function (require, exports, module) {
             if (treeNode != null && treeNode.node != null) {
                 tree_child.name = treeNode.node.short_title;
                 tree_child.title =
-                 "实际耗时：<span style='color: #e72f6a; font-weight: bold'>" + treeNode.node.duration+"ms</span><br/>"
-                +"期望耗时：<span style='color: #00a5ff; font-weight: bold'>"+treeNode.node.expect+"ms</span><br/>";
-                if(treeNode.node.merge > 1){
-                    tree_child.title+="重复执行：<span class=\"badge\" style=\"background-color:#ff68b5\">"+treeNode.node.merge+"次</span><br/>"
-                    +"平均耗时：<span style='color: #b85c0d; font-weight: bold'>"+treeNode.node.avg_duration+"ms</span><br/>"
-                        +"最大耗时：<span style='color: #bf0018; font-weight: bold'>"+treeNode.node.max_duration+"ms</span><br/>"
-                        +"最小耗时：<span style='color: #5e9003; font-weight: bold'>"+treeNode.node.min_duration+"ms</span><br/>";
+                    "实际耗时：<span style='color: #e72f6a; font-weight: bold'>" + treeNode.node.avg_duration + "ms</span><br/>"
+                    + "期望耗时：<span style='color: #00a5ff; font-weight: bold'>" + treeNode.node.expect + "ms</span><br/>";
+                if (treeNode.node.merge > 1) {
+                    tree_child.title += "重复执行：<span class=\"badge\" style=\"background-color:#ff68b5\">" + treeNode.node.merge + "次</span><br/>"
+                        + "平均耗时：<span style='color: #b85c0d; font-weight: bold'>" + treeNode.node.avg_duration + "ms</span><br/>"
+                        + "最大耗时：<span style='color: #bf0018; font-weight: bold'>" + treeNode.node.max_duration + "ms</span><br/>"
+                        + "最小耗时：<span style='color: #5e9003; font-weight: bold'>" + treeNode.node.min_duration + "ms</span><br/>";
                 }
 
                 if (treeNode.node.is_error) {
