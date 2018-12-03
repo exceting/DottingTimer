@@ -1,4 +1,5 @@
 rootProject.name = 'DottingTimer'
 include 'dotting'
 include 'ui'
+include 'store'
 
