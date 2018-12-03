@@ -29,5 +29,7 @@ dependencies {
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.27'
     compile group: 'org.springframework', name: 'spring-context-support', version: '4.3.10.RELEASE'
     compile group: 'org.springframework', name: 'spring-web', version: '4.3.10.RELEASE'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.0.0.RELEASE'
+    compile group: 'org.elasticsearch.client', name: 'transport', version: '5.4.1'
 }

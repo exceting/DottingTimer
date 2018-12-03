@@ -3,9 +3,8 @@
  * Copyright (c) 2018-2019 All Rights Reserved.
  */
 
-package dotting.timer.ui.config;
+package dotting.timer.server.config;
 
-import dotting.timer.client.db.ConnectionPool;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -24,7 +23,7 @@ import java.util.Objects;
  */
 @Configuration
 @ComponentScan(basePackages = {
-        "dotting.timer.client"
+        "dotting.timer.server"
 })
 @EnableConfigurationProperties({ServerProperties.class})
 public class AppConfig {
@@ -38,7 +37,6 @@ public class AppConfig {
         };
         yamlPropertiesFactoryBean.setResources(resources);
         properties.setProperties(Objects.requireNonNull(yamlPropertiesFactoryBean.getObject()));
-        ConnectionPool.initConnectionPool();//初始化数据源
         return properties;
     }
 
