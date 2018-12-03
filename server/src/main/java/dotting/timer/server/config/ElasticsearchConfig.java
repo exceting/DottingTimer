@@ -32,7 +32,7 @@ public class ElasticsearchConfig {
         return new ElasticsearchConfigParam();
     }
 
-    @Bean(name = "esClient")
+    @Bean(name = "esClient", destroyMethod = "close")
     public TransportClient esClient(@Qualifier("esParam") ElasticsearchConfigParam esParam) {
         try {
             Settings settings = Settings.builder()
