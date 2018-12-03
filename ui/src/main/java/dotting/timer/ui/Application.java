@@ -1,6 +1,6 @@
 /**
  * sharemer.com Inc.
- * Copyright (c) 2009-2018 All Rights Reserved.
+ * Copyright (c) 2018-2019 All Rights Reserved.
  */
 
 package dotting.timer.ui;
