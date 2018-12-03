@@ -3,7 +3,7 @@
 
 ## 目前自测可以达到的一个效果图
 链路主线程：
-![效果图](https://github.com/sunqinwen/DottingTimer/blob/master/ui/src/main/resources/static/test/images/index_01.png)
+![效果图](https://github.com/sunqinwen/DottingTimer/blob/master/client/src/main/resources/static/test/images/index_01.png)
 
 ## 进度：
 基本打点流程已完成，支持主链路里异步出去的子线程链路（如图中<异步区>）
