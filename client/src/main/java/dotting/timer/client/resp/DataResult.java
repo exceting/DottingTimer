@@ -2,7 +2,7 @@
  * sharemer.com Inc.
  * Copyright (c) 2018-2019 All Rights Reserved.
  */
-package dotting.timer.ui.resp;
+package dotting.timer.client.resp;
 
 /**
  * @author sunqinwen

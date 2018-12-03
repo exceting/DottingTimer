@@ -10,7 +10,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 
-group 'ui'
+group 'client'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8

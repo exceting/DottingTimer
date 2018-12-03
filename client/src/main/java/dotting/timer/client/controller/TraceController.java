@@ -2,16 +2,16 @@
  * sharemer.com Inc.
  * Copyright (c) 2018-2019 All Rights Reserved.
  */
-package dotting.timer.ui.controller;
+package dotting.timer.client.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import dotting.timer.ui.db.ConnectionPool;
-import dotting.timer.ui.po.Span;
-import dotting.timer.ui.resp.DataResult;
-import dotting.timer.ui.utils.Page;
+import dotting.timer.client.db.ConnectionPool;
+import dotting.timer.client.po.Span;
+import dotting.timer.client.resp.DataResult;
+import dotting.timer.client.utils.Page;
 
 import java.sql.SQLException;
 

@@ -10,7 +10,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 
-group 'store'
+group 'server'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8

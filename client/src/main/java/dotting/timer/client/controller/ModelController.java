@@ -2,7 +2,7 @@
  * sharemer.com Inc.
  * Copyright (c) 2018-2019 All Rights Reserved.
  */
-package dotting.timer.ui.controller;
+package dotting.timer.client.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

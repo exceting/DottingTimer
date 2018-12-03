@@ -1,4 +1,4 @@
-package dotting.timer.ui.utils;
+package dotting.timer.client.utils;
 
 import java.io.Serializable;
 import java.util.ArrayList;

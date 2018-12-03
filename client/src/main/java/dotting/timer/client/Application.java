@@ -3,7 +3,7 @@
  * Copyright (c) 2018-2019 All Rights Reserved.
  */
 
-package dotting.timer.ui;
+package dotting.timer.client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;

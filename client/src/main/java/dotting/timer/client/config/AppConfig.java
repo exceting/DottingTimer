@@ -5,7 +5,7 @@
 
 package dotting.timer.ui.config;
 
-import dotting.timer.ui.db.ConnectionPool;
+import dotting.timer.client.db.ConnectionPool;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -22,7 +22,7 @@ import org.springframework.core.io.Resource;
  */
 @Configuration
 @ComponentScan(basePackages = {
-        "dotting.timer.ui"
+        "dotting.timer.client"
 })
 @EnableConfigurationProperties({ServerProperties.class})
 public class AppConfig {

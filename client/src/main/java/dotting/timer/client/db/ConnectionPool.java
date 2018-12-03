@@ -2,14 +2,14 @@
  * sharemer.com Inc.
  * Copyright (c) 2018-2019 All Rights Reserved.
  */
-package dotting.timer.ui.db;
+package dotting.timer.client.db;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import dotting.timer.ui.po.Span;
-import dotting.timer.ui.utils.Page;
+import dotting.timer.client.po.Span;
+import dotting.timer.client.utils.Page;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

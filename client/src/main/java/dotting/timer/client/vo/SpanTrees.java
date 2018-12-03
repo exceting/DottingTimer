@@ -2,9 +2,9 @@
  * sharemer.com Inc.
  * Copyright (c) 2018-2019 All Rights Reserved.
  */
-package dotting.timer.ui.vo;
+package dotting.timer.client.vo;
 
-import dotting.timer.ui.po.SpanTree;
+import dotting.timer.client.po.SpanTree;
 
 import java.util.List;
 

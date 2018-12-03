@@ -2,15 +2,15 @@
  * sharemer.com Inc.
  * Copyright (c) 2018-2019 All Rights Reserved.
  */
-package dotting.timer.ui.controller;
+package dotting.timer.client.controller;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import dotting.timer.ui.db.ConnectionPool;
-import dotting.timer.ui.po.Span;
-import dotting.timer.ui.po.SpanTree;
-import dotting.timer.ui.resp.DataResult;
-import dotting.timer.ui.vo.SpanTrees;
+import dotting.timer.client.db.ConnectionPool;
+import dotting.timer.client.po.Span;
+import dotting.timer.client.po.SpanTree;
+import dotting.timer.client.resp.DataResult;
+import dotting.timer.client.vo.SpanTrees;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
