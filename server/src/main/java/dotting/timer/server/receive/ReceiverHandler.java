@@ -40,6 +40,7 @@ public class ReceiverHandler extends SimpleChannelInboundHandler<DatagramPacket>
             System.out.println("avg = " + span.getAvg());
             System.out.println("minTime = " + span.getMinTime());
             System.out.println("maxTime = " + span.getMaxTime());
+            System.out.println("----------------------------------------");
         } else {
             System.out.println("deser is null !");
         }
