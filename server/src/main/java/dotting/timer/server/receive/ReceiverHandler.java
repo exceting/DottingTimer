@@ -1,5 +1,5 @@
 /**
- * Bilibili.com Inc.
+ * sharemer.com Inc.
  * Copyright (c) 2009-2018 All Rights Reserved.
  */
 package dotting.timer.server.receive;
@@ -18,12 +18,11 @@ import io.netty.util.CharsetUtil;
  */
 public class ReceiverHandler extends SimpleChannelInboundHandler<DatagramPacket> {
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket msg) throws Exception {
-        // 读取收到的数据
+    protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket msg) {
         ByteBuf buf = msg.copy().content();
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
         String body = new String(req, CharsetUtil.UTF_8);
-        System.out.println("【NOTE】>>>>>> 收到客户端的数据："+body);// 回复一条信息给客户端
+        System.out.println(">>>>>> 收到客户端的数据："+body);
     }
 }

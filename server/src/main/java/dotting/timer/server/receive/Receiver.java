@@ -1,5 +1,5 @@
 /**
- * Bilibili.com Inc.
+ * sharemer.com Inc.
  * Copyright (c) 2009-2018 All Rights Reserved.
  */
 package dotting.timer.server.receive;
@@ -30,7 +30,7 @@ public class Receiver {
         }).start();
     }
 
-    public static void initReceiver(int port) throws InterruptedException {
+    private static void initReceiver(int port) throws InterruptedException {
         Bootstrap b = new Bootstrap();
         EventLoopGroup group = new NioEventLoopGroup();
         b.group(group).channel(NioDatagramChannel.class).handler(new ReceiverHandler());
