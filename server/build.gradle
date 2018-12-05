@@ -33,4 +33,6 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.0.0.RELEASE'
     compile group: 'org.elasticsearch.client', name: 'transport', version: '5.4.1'
     compile group: 'com.alibaba', name: 'fastjson', version: '1.1.41'
+    compile group: 'com.esotericsoftware', name: 'kryo', version: '4.0.2'
+    compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.6.0'
 }
