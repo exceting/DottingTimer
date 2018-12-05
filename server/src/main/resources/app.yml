@@ -1,5 +1,5 @@
 dotting:
-  es:
-    clusterName: dotting_timer
-    hosts: 127.0.0.1:9300,127.0.0.1:9301,127.0.0.1:9302
-    index: tracer
+  esClusterName: dotting_timer
+  esHosts: 127.0.0.1:9300,127.0.0.1:9301,127.0.0.1:9302
+  esIndex: tracer
+  receiverPort: 8009
