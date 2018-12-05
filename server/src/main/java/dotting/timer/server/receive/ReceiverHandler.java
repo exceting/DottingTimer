@@ -2,7 +2,7 @@
  * Bilibili.com Inc.
  * Copyright (c) 2009-2018 All Rights Reserved.
  */
-package dotting.timer.server.config.receive;
+package dotting.timer.server.receive;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

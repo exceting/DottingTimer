@@ -5,7 +5,7 @@
 package dotting.timer.server.config;
 
 import dotting.timer.server.config.properties.ConfigParam;
-import dotting.timer.server.config.receive.Receiver;
+import dotting.timer.server.receive.Receiver;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
