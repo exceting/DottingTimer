@@ -35,27 +35,30 @@ public class SpanSerializerTest {
 
     @Test()
     public void test() throws Exception{
-        CoreSpan span = new CoreSpan();
-        span.setTraceId(1111L);
-        span.setSpanId(22222L);
-        span.setParentId(888L);
-        span.setStartTime(14345325L);
-        span.setEndTime(453466665L);
-        span.setIsAsync(1);
-        span.setIsError(0);
-        span.setExpect(55L);
-        span.setMoudle("sharemer-core");
-        span.setTitle("getAllMusicById");
-        span.setTags("{\"db\":\"mysql\"}");
-        span.setCount(5555L);
-        span.setAvg(56L);
-        span.setMinTime(5L);
-        span.setMaxTime(180L);
 
-        byte[] bytes = KryoPool.serialize(span);
+        for(int i = 0; i < 10; i++){
+            CoreSpan span = new CoreSpan();
+            span.setTraceId(i);
+            span.setSpanId(22222L);
+            span.setParentId(888L);
+            span.setStartTime(14345325L);
+            span.setEndTime(453466665L);
+            span.setIsAsync(1);
+            span.setIsError(0);
+            span.setExpect(55L);
+            span.setMoudle("sharemer-core");
+            span.setTitle("getAllMusicById");
+            span.setTags("{\"db\":\"mysql\"}");
+            span.setCount(5555L);
+            span.setAvg(56L);
+            span.setMinTime(5L);
+            span.setMaxTime(180L);
 
-        DatagramPacket request = new DatagramPacket(bytes, bytes.length, host, port);
-        socket.send(request);
+            byte[] bytes = KryoPool.serialize(span);
+
+            DatagramPacket request = new DatagramPacket(bytes, bytes.length, host, port);
+            socket.send(request);
+        }
 
         System.out.println("done~");
     }
