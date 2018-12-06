@@ -30,6 +30,7 @@ dependencies {
     implementation libs["aspectj"]
     implementation libs["slf4j"]
     implementation libs["druid"]
+    implementation libs["mysql"]
     implementation libs["kryo"]
     implementation libs["commons-pool"]
 }
