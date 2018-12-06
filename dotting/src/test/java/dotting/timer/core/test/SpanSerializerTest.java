@@ -34,9 +34,10 @@ public class SpanSerializerTest {
     }
 
     @Test()
-    public void test() throws Exception{
+    public void test() throws Exception {
 
-        for(int i = 0; i < 10; i++){
+        long s = System.currentTimeMillis();
+        for (int i = 0; i < 10; i++) {
             CoreSpan span = new CoreSpan();
             span.setTraceId(i);
             span.setSpanId(22222L);
@@ -60,12 +61,12 @@ public class SpanSerializerTest {
             socket.send(request);
         }
 
-        System.out.println("done~");
+        System.out.println("done~  duration = " + (System.currentTimeMillis() - s) + "ms");
     }
 
     @After
     public void afterDo() {
-        if(socket != null){
+        if (socket != null) {
             socket.close();
         }
         System.out.println("after done~");
