@@ -82,7 +82,7 @@ public class Pusher {
                 try {
                     span = queue.take();
                     byte[] spanBytes = KryoPool.serialize(span);
-                    int key = Arrays.hashCode(spanBytes) % serverSize;
+                    int key = Math.abs(Arrays.hashCode(spanBytes)) % serverSize;
                     DatagramPacket request = new DatagramPacket(spanBytes, spanBytes.length,
                             hosts.get(key), ports.get(key));
                     socket.send(request);

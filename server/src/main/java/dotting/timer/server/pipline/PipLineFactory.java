@@ -28,6 +28,6 @@ public class PipLineFactory {
     }
 
     public PipLine getPipLine(byte[] data) {
-        return pipLines.get(Arrays.hashCode(data) % size);
+        return pipLines.get(Math.abs(Arrays.hashCode(data)) % size);
     }
 }
