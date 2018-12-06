@@ -1,9 +1,8 @@
 package dotting.timer.core.tracer;
 
 import dotting.timer.core.builder.DottingSpanContext;
-import dotting.timer.core.push.PushHandler;
-import dotting.timer.core.push.PushHandlerManager;
-import dotting.timer.core.utils.PushUtils;
+import dotting.timer.core.push.Pusher;
+import dotting.timer.core.serialize.ObjTransfer;
 import io.opentracing.*;
 import io.opentracing.propagation.Format;
 import dotting.timer.core.builder.DottingReference;
@@ -21,7 +20,6 @@ public class DottingTracer implements Tracer {
 
     private final List<DottingSpan> finishedSpans = new ArrayList<>();
     private String moudle;
-    private boolean isDebug;
     private boolean sampled;
     private boolean includeAsync;
     private Long traceId;
@@ -30,7 +28,6 @@ public class DottingTracer implements Tracer {
     public DottingTracer(boolean sampled, String moudle, boolean isDebug) {
         this.moudle = moudle;
         this.sampled = isDebug || sampled;
-        this.isDebug = isDebug;
     }
 
     public void setTraceId(Long traceId){
@@ -101,11 +98,8 @@ public class DottingTracer implements Tracer {
         if (sampled) {
             List<DottingSpan> finished = this.finishedSpans;
             if (finished.size() > 0) {
-                finished.stream().filter(DottingSpan::getSampled).forEach(f -> {
-                    PushHandler pushHandler = PushHandlerManager.getHandler(isDebug, PushUtils.DBTYPE_MYSQL);
-                    if (pushHandler != null) {
-                        pushHandler.pushSpan(f);
-                    }
+                finished.stream().filter(DottingSpan::getSampled).map(ObjTransfer::spanTransfer).forEach(f -> {
+                    Pusher.getReceiver().pushSpan(f);
                 });
                 this.reset();
             }

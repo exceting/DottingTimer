@@ -26,6 +26,8 @@ public class ConfigParam {
 
     private Integer receiverPort;
 
+    private Integer piplineSize;
+
     public Integer getReceiverPort() {
         return receiverPort;
     }
@@ -56,5 +58,13 @@ public class ConfigParam {
 
     public void setEsIndex(String esIndex) {
         this.esIndex = esIndex;
+    }
+
+    public Integer getPiplineSize() {
+        return piplineSize;
+    }
+
+    public void setPiplineSize(Integer piplineSize) {
+        this.piplineSize = piplineSize;
     }
 }

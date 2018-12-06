@@ -4,6 +4,7 @@
  */
 package dotting.timer.server.receive;
 
+import dotting.timer.server.pipline.PipLineFactory;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -20,20 +21,20 @@ public class Receiver {
 
     private static Logger logger = LoggerFactory.getLogger(Receiver.class);
 
-    public Receiver(int port) {
+    public Receiver(int port, PipLineFactory pipLineFactory) {
         new Thread(() -> {
             try {
-                initReceiver(port);
+                initReceiver(port, pipLineFactory);
             } catch (InterruptedException e) {
                 logger.error("init receiver error !", e);
             }
         }).start();
     }
 
-    private static void initReceiver(int port) throws InterruptedException {
+    private static void initReceiver(int port, PipLineFactory pipLineFactory) throws InterruptedException {
         Bootstrap b = new Bootstrap();
         EventLoopGroup group = new NioEventLoopGroup();
-        b.group(group).channel(NioDatagramChannel.class).handler(new ReceiverHandler());
+        b.group(group).channel(NioDatagramChannel.class).handler(new ReceiverHandler(pipLineFactory));
         logger.info("the receiver udp server will init, and will listen port:{}", port);
         b.bind(port).sync().channel().closeFuture().await();
     }

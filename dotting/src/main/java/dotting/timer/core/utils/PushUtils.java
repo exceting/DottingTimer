@@ -11,16 +11,6 @@ import java.util.Random;
  */
 public class PushUtils {
 
-    public static final int DBTYPE_MYSQL = 0;
-
-    public static final int DBTYPE_ES = 1;
-
-    public static final int DBTYPE_REDIS = 2;
-
-    public static final int DBTYPE_MONGODB = 3;
-
-    public static final int DBTYPE_HBASE = 4;
-
     private static final Random random = new Random();
 
     private static final Map<String, Long> urlMap = Maps.newConcurrentMap();

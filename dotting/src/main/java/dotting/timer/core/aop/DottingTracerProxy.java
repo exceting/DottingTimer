@@ -9,7 +9,7 @@ import dotting.timer.core.annos.DottingNode;
 import dotting.timer.core.builder.DottingSpanContext;
 import dotting.timer.core.context.DottingTracerContext;
 import dotting.timer.core.context.DottingTracerContextHolder;
-import dotting.timer.core.debug.db.mysql.ConnectionPool;
+import dotting.timer.core.push.Pusher;
 import dotting.timer.core.span.DottingSpan;
 import dotting.timer.core.utils.PushUtils;
 import dotting.timer.core.utils.SpanTags;
@@ -32,11 +32,12 @@ public class DottingTracerProxy {
 
     private Logger logger = LoggerFactory.getLogger(DottingTracerProxy.class);
 
-    public DottingTracerProxy() {
-    }
-
-    public DottingTracerProxy(String driver, String user, String password, String url) {
-        ConnectionPool.initConnectionPool(driver, user, password, url);
+    public DottingTracerProxy(String hosts) {
+        try {
+            Pusher.initReceiver(hosts);
+        } catch (Exception e) {
+            logger.error("dotting tracer proxy init error ! hosts = {}", hosts, e);
+        }
     }
 
     @Pointcut("@annotation(dotting.timer.core.annos.DottingNode)")

@@ -10,7 +10,6 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencies {
     implementation libs["junit"]
-    implementation libs["junit"]
     implementation libs["springboot-starter-web"]
     implementation libs["springboot-starter-aop"]
     implementation libs["spring-context-support"]
@@ -22,6 +21,7 @@ dependencies {
     implementation libs['kryo']
     implementation libs['commons-pool']
     implementation libs['netty']
+    implementation libs['druid']
 }
 
 bootJar {

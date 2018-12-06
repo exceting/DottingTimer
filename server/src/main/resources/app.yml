@@ -1,5 +1,18 @@
 dotting:
-  esClusterName: dotting_timer
-  esHosts: 127.0.0.1:9300,127.0.0.1:9301,127.0.0.1:9302
-  esIndex: tracer
-  receiverPort: 8009
+  param:
+    esClusterName: dotting_timer
+    esHosts: 127.0.0.1:9300,127.0.0.1:9301,127.0.0.1:9302
+    esIndex: tracer
+    receiverPort: 8009
+    piplineSize: 5
+
+  datasource:
+    driverClass: com.mysql.jdbc.Driver
+    username: root
+    password: sun123456
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/tree_tracer?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull
+    maxActive: 20
+    minIdle: 5
+    maxWait: 2000
+    testOnBorrow: true
+
