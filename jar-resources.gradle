@@ -1,0 +1,38 @@
+ext {
+    versions = [
+            'junit'       : '4.12',
+            'spring'      : '5.0.4.RELEASE',
+            'springboot'  : '2.0.0.RELEASE',
+            'guava'       : '24.0-jre',
+            'fastjson'    : '1.2.46',
+            'druid'       : '1.1.9',
+            'mysql'       : '5.1.46',
+            'slf4j'       : '1.7.7',
+            'kryo'        : '4.0.2',
+            'ttl'         : '2.9.0',
+            'tracing'     : '0.31.0',
+            'aspectj'     : '1.9.2',
+            'commons-pool': '2.6.0',
+            'netty'       : '4.1.32.Final'
+    ]
+    libs = [
+            'junit'                       : "junit:junit:${versions['junit']}",
+            'springboot-gradle-plugin'    : "org.springframework.boot:spring-boot-gradle-plugin:${versions['springboot']}",
+            'springboot-starter-thymeleaf': "org.springframework.boot:spring-boot-starter-thymeleaf",
+            'springboot-starter-web'      : "org.springframework.boot:spring-boot-starter-web",
+            'springboot-starter-aop'      : "org.springframework.boot:spring-boot-starter-aop",
+            'springboot-autoconfigure'    : "org.springframework.boot:spring-boot-autoconfigure",
+            'spring-context-support'      : "org.springframework:spring-context-support",
+            'guava'                       : "com.google.guava:guava:${versions['guava']}",
+            'fastjson'                    : "com.alibaba:fastjson:${versions['fastjson']}",
+            'druid'                       : "com.alibaba:druid:${versions['druid']}",
+            'mysql'                       : "mysql:mysql-connector-java:${versions['mysql']}",
+            'slf4j'                       : "org.slf4j:slf4j-api:${versions['slf4j']}",
+            'kryo'                        : "com.esotericsoftware:kryo:${versions['kryo']}",
+            'ttl'                         : "com.alibaba:transmittable-thread-local:${versions['ttl']}",
+            'tracing'                     : "io.opentracing:opentracing-api:${versions['tracing']}",
+            'aspectj'                     : "org.aspectj:aspectjrt:${versions['aspectj']}",
+            'commons-pool'                : "org.apache.commons:commons-pool2:${versions['commons-pool']}",
+            'netty'                       : "io.netty:netty-all:${versions['netty']}"
+    ]
+}

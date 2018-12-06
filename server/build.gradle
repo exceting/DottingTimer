@@ -1,38 +1,30 @@
 buildscript {
-    repositories {
-        mavenCentral()
-    }
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.0.RELEASE"
+        classpath libs["springboot-gradle-plugin"]
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
-
-group 'server'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
+apply plugin: 'io.spring.dependency-management'
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.0.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.0.0.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '2.0.0.RELEASE'
-    compile group: 'com.alibaba', name: 'druid', version: '1.1.12'
-    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.27'
-    compile group: 'org.springframework', name: 'spring-context-support', version: '4.3.10.RELEASE'
-    compile group: 'org.springframework', name: 'spring-web', version: '4.3.10.RELEASE'
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.0.0.RELEASE'
-    compile group: 'org.elasticsearch.client', name: 'transport', version: '5.4.1'
-    compile group: 'com.alibaba', name: 'fastjson', version: '1.1.41'
-    compile group: 'com.esotericsoftware', name: 'kryo', version: '4.0.2'
-    compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.6.0'
+    implementation libs["junit"]
+    implementation libs["junit"]
+    implementation libs["springboot-starter-web"]
+    implementation libs["springboot-starter-aop"]
+    implementation libs["spring-context-support"]
+    implementation libs["springboot-autoconfigure"]
+    implementation libs["springboot-starter-thymeleaf"]
+    implementation libs["fastjson"]
+    implementation libs['slf4j']
+    implementation libs['guava']
+    implementation libs['kryo']
+    implementation libs['commons-pool']
+    implementation libs['netty']
+}
+
+bootJar {
+    baseName "server"
+    version ''
 }

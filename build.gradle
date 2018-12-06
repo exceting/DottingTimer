@@ -1,1 +1,40 @@
+apply from: 'jar-resources.gradle'
 apply from: 'resources.gradle'
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url "http://mvnrepository.com/" }
+    }
+}
+
+subprojects {
+    buildscript {
+        repositories {
+            mavenCentral()
+            maven { url "http://mvnrepository.com/" }
+        }
+    }
+
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+        options.encoding = 'UTF-8'
+        options.fork = true
+    }
+}
+configure(subprojects) { project ->
+    def cleanTasks = project.getTasksByName('clean', false)
+    if (cleanTasks != null && cleanTasks.size() > 0) {
+        project.clean {
+            delete 'out'
+        }
+    }
+}

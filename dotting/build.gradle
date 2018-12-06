@@ -23,15 +23,15 @@ repositories {
 def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile group: 'io.opentracing', name: 'opentracing-api', version: '0.31.0'
-    compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
-    compile group: 'com.alibaba', name: 'transmittable-thread-local', version: '2.9.0'
-    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.9.2'
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
-    compile group: 'com.alibaba', name: 'druid', version: '1.1.12'
-    compile group: 'com.esotericsoftware', name: 'kryo', version: '4.0.2'
-    compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.6.0'
+    implementation libs["junit"]
+    implementation libs["tracing"]
+    implementation libs["guava"]
+    implementation libs["ttl"]
+    implementation libs["aspectj"]
+    implementation libs["slf4j"]
+    implementation libs["druid"]
+    implementation libs["kryo"]
+    implementation libs["commons-pool"]
 }
 
 uploadArchives {
