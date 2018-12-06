@@ -34,7 +34,7 @@ public class Receiver {
         Bootstrap b = new Bootstrap();
         EventLoopGroup group = new NioEventLoopGroup();
         b.group(group).channel(NioDatagramChannel.class).handler(new ReceiverHandler());
-        logger.info(">>>>>>>>>the receiver udp server will init, and will listen port:{}", port);
+        logger.info("the receiver udp server will init, and will listen port:{}", port);
         b.bind(port).sync().channel().closeFuture().await();
     }
 
