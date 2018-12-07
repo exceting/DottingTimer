@@ -32,8 +32,8 @@ public class InitConfig {
         return new DruidDataSource();
     }
 
-    @Bean(name = "bangumiSqlSession")
-    public Receiver bangumiSqlSession(@Qualifier("configParam") ConfigParam configParam,
+    @Bean(name = "receiver")
+    public Receiver receiver(@Qualifier("configParam") ConfigParam configParam,
                                       @Qualifier("dataSource") DruidDataSource dataSource) throws Exception {
         if (configParam.getReceiverPort() == null) {
             throw new Exception("receiver port is null !");

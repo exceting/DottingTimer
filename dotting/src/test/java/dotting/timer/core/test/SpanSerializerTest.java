@@ -44,10 +44,10 @@ public class SpanSerializerTest {
             span.setParentId(888L);
             span.setStartTime(14345325L);
             span.setEndTime(453466665L);
-            span.setIsAsync(1);
-            span.setIsError(0);
-            span.setExpect(55L);
-            span.setMoudle("sharemer-core");
+            span.setIsAsync(1);//
+            span.setIsError(0);//
+            span.setExpect(55L);//
+            span.setMoudle("sharemer-core");//
             span.setTitle("getAllMusicById");
             span.setTags("{\"db\":\"mysql\"}");
             span.setCount(5555L);

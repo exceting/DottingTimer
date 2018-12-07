@@ -23,8 +23,8 @@ public class SpanSerializer extends Serializer<CoreSpan> {
         output.writeLong(span.getParentId(), true);
         output.writeLong(span.getStartTime(), true);
         output.writeLong(span.getEndTime(), true);
-        output.writeInt(span.getIsAsync(), true);
-        output.writeInt(span.getIsError(), true);
+        output.writeInt(span.getIsAsync());
+        output.writeInt(span.getIsError());
         output.writeLong(span.getExpect(), true);
         output.writeString(span.getMoudle());
         output.writeString(span.getTitle());
