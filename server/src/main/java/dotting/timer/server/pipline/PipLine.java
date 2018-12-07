@@ -69,7 +69,6 @@ public class PipLine {
                         try {
                             connection = dataSource.getConnection();
                             statement = connection.createStatement();
-                            logger.info("-------------sql={}", sql);
                             statement.executeUpdate(sql);
                         } catch (SQLException e) {
                             logger.error("dotting tracer connection pool write result error! sql={}", sql, e);
