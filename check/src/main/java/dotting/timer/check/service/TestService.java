@@ -31,4 +31,10 @@ public class TestService {
         return sb.toString();
     }
 
+    @DottingNode(expect = 30)
+    public void loopService1() {
+        for (int i = 0; i < 21; i++) {
+            testDao.loopDao1();
+        }
+    }
 }

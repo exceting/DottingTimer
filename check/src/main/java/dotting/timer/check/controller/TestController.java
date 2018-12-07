@@ -24,6 +24,7 @@ public class TestController {
                 .append(testService.getResultService1())
                 .append(",  other one is : ")
                 .append(testService.getResultService2());
+        testService.loopService1();
         return sb.toString();
     }
 

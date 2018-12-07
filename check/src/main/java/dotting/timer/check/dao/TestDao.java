@@ -49,4 +49,13 @@ public class TestDao {
         return "resultDao22";
     }
 
+    @DottingNode(expect = 10)
+    public void loopDao1() {
+        try {
+            Thread.sleep(1L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

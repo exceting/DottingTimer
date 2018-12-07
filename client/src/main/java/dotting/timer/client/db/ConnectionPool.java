@@ -116,7 +116,7 @@ public class ConnectionPool {
         this.dataSource = new DruidDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUsername("root");
-        dataSource.setPassword("sun123456");
+        dataSource.setPassword("sun123456`");
         dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/tree_tracer?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull");
         dataSource.setMaxActive(20);
         dataSource.setMinIdle(5);
