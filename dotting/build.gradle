@@ -1,4 +1,5 @@
-apply plugin: 'java'
+apply plugin: 'java-library'
+version = '0.0.9'
 apply plugin: 'maven' // 引入maven插件
 
 buildscript {

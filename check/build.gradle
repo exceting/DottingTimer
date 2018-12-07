@@ -1,0 +1,30 @@
+buildscript {
+    dependencies {
+        classpath libs["springboot-gradle-plugin"]
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+dependencies {
+    implementation libs["junit"]
+    implementation libs["springboot-starter-web"]
+    implementation libs["springboot-starter-aop"]
+    implementation libs["spring-context-support"]
+    implementation libs["springboot-autoconfigure"]
+    implementation libs["springboot-starter-thymeleaf"]
+    implementation libs["fastjson"]
+    implementation libs['slf4j']
+    implementation libs['junit']
+    implementation libs['guava']
+    implementation libs['druid']
+    implementation libs['mysql']
+    implementation project(":dotting")
+}
+
+bootJar {
+    baseName "check"
+    version ''
+}
