@@ -1,8 +1,7 @@
 package dotting.timer.core.span;
 
-//import com.google.common.base.Charsets;
-//import com.google.common.hash.Hashing;
-
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
 import dotting.timer.core.builder.DottingSpanContext;
 import dotting.timer.core.context.DottingTracerContext;
 import dotting.timer.core.context.DottingTracerContextHolder;
@@ -189,9 +188,7 @@ public class DottingSpan implements Span {
     }
 
     private static long makeId() {
-        return UUID.randomUUID().hashCode();
-       /* Long id = Hashing.farmHashFingerprint64().hashString(UUID.randomUUID().toString(), Charsets.UTF_8).asLong();
-        return id < 0 ? id * -1 : id;*/
+        return Math.abs(Hashing.farmHashFingerprint64().hashString(UUID.randomUUID().toString(), Charsets.UTF_8).asLong());
     }
 
     public static long getCurrentTime() {
@@ -229,7 +226,6 @@ public class DottingSpan implements Span {
                 return;
             }
             if (!context.canMerge(this)) {
-
                 this.dottingTracer.appendFinishedSpan(this);
                 this.finished = true;
             }

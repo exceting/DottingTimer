@@ -151,6 +151,7 @@ public class DottingTracerProxy {
             if (currentSpan.getParentId() == 0 && context.isAllSpansFinished()) {
                 DottingTracerContextHolder.removeContext();
                 currentTracer.pushSpans();
+                context.clearMerge(currentSpan);
             }
         } catch (Exception e) {
             logger.error("dotting tracer after error !", e);
@@ -182,6 +183,7 @@ public class DottingTracerProxy {
             currentSpan.finish();
             if (currentSpan.getParentId() == 0) {
                 currentTracer.pushSpans();
+                context.clearMerge(currentSpan);
             }
         } catch (Exception ec) {
             logger.error("dotting tracer after throwing error !", ec);

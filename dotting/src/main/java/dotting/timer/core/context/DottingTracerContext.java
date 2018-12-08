@@ -110,7 +110,7 @@ public class DottingTracerContext {
     }
 
     public synchronized boolean canMerge(DottingSpan currentSpan) {
-        String key = String.format("%s:%s", currentSpan.getParentId(), currentSpan.getTitle());
+        String key = String.format("%s-%s-%s", Thread.currentThread().getName(), currentSpan.getParentId(), currentSpan.getTitle());
         DottingSpan mergeSpan = merge.get(key);
         long duration = currentSpan.getEndTime() - currentSpan.getStartTime();
         if (mergeSpan != null) {
@@ -119,5 +119,9 @@ public class DottingTracerContext {
         }
         merge.put(key, currentSpan.initMerge(duration));
         return false;
+    }
+    public synchronized void clearMerge(DottingSpan currentSpan) {
+        String key = String.format("%s-%s-%s", Thread.currentThread().getName(), currentSpan.getParentId(), currentSpan.getTitle());
+        merge.remove(key);
     }
 }

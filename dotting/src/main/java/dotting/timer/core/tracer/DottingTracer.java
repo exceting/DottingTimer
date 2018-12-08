@@ -1,5 +1,7 @@
 package dotting.timer.core.tracer;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import dotting.timer.core.builder.DottingSpanContext;
 import dotting.timer.core.push.Pusher;
 import dotting.timer.core.serialize.ObjTransfer;
@@ -18,7 +20,7 @@ import java.util.Map;
  */
 public class DottingTracer implements Tracer {
 
-    private final List<DottingSpan> finishedSpans = new ArrayList<>();
+    private final Map<String, List<DottingSpan>> finishedSpans = Maps.newHashMap();
     private String moudle;
     private boolean sampled;
     private boolean includeAsync;
@@ -30,7 +32,7 @@ public class DottingTracer implements Tracer {
         this.sampled = isDebug || sampled;
     }
 
-    public void setTraceId(Long traceId){
+    public void setTraceId(Long traceId) {
         this.traceId = traceId;
     }
 
@@ -43,14 +45,7 @@ public class DottingTracer implements Tracer {
     }
 
     public synchronized void reset() {
-        this.finishedSpans.clear();
-    }
-
-    public synchronized List<DottingSpan> finishedSpans() {
-        return new ArrayList<>(this.finishedSpans);
-    }
-
-    public void onSpanFinished(DottingSpan biliSpan) {
+        this.finishedSpans.put(Thread.currentThread().getName(), null);
     }
 
     public void setIncludeAsync(boolean includeAsync) {
@@ -89,18 +84,22 @@ public class DottingTracer implements Tracer {
         return null;
     }
 
-    public synchronized void appendFinishedSpan(DottingSpan biliSpan) {
-        this.finishedSpans.add(biliSpan);
-        this.onSpanFinished(biliSpan);
+    public synchronized void appendFinishedSpan(DottingSpan dottingSpan) {
+        String key = Thread.currentThread().getName();
+        List<DottingSpan> spans = this.finishedSpans.get(key);
+        if(spans == null){
+            finishedSpans.put(key, Lists.newArrayList());
+        }
+        this.finishedSpans.get(key).add(dottingSpan);
     }
 
     public synchronized void pushSpans() {
         if (sampled) {
-            List<DottingSpan> finished = this.finishedSpans;
-            if (finished.size() > 0) {
-                finished.stream().filter(DottingSpan::getSampled).map(ObjTransfer::spanTransfer).forEach(f -> {
-                    Pusher.getReceiver().pushSpan(f);
-                });
+            List<DottingSpan> finished = this.finishedSpans.get(Thread.currentThread().getName());
+            if (finished != null && finished.size() > 0) {
+                finished.stream().filter(DottingSpan::getSampled)
+                        .map(ObjTransfer::spanTransfer)
+                        .forEach(f -> Pusher.getReceiver().pushSpan(f));
                 this.reset();
             }
         }

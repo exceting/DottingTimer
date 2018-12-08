@@ -37,4 +37,24 @@ public class TestService {
             testDao.loopDao1();
         }
     }
+
+    @DottingNode(expect = 5)
+    public void asyncMethod1() {
+        for (int i = 0; i < 2; i++) {
+            testDao.asyncMethodDao1();
+        }
+        for (int i = 0; i < 6; i++) {
+            testDao.asyncMethodDao2();
+        }
+    }
+
+    @DottingNode(expect = 2)
+    public void asyncMethod2() {
+        for (int i = 0; i < 12; i++) {
+            testDao.asyncMethodDao3();
+        }
+        for (int i = 0; i < 21; i++) {
+            testDao.asyncMethodDao4();
+        }
+    }
 }
