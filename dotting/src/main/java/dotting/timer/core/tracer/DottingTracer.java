@@ -87,7 +87,7 @@ public class DottingTracer implements Tracer {
     public synchronized void appendFinishedSpan(DottingSpan dottingSpan) {
         String key = Thread.currentThread().getName();
         List<DottingSpan> spans = this.finishedSpans.get(key);
-        if(spans == null){
+        if (spans == null) {
             finishedSpans.put(key, Lists.newArrayList());
         }
         this.finishedSpans.get(key).add(dottingSpan);

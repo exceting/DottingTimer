@@ -16,17 +16,17 @@ import java.util.List;
  */
 public class Span {
 
-    private long id;
+    private String id;
 
-    private long trace_id;
+    private String trace_id;
 
-    private long span_id;
+    private String span_id;
 
-    private long parent_id;
+    private String parent_id;
 
-    private long start;
+    private String start;
 
-    private long end;
+    private String end;
 
     private int is_async;
 
@@ -56,51 +56,92 @@ public class Span {
 
     private int max_duration;
 
-    public long getId() {
+    public static Span getSpanObjByRs(ResultSet rs) throws SQLException {
+        Span span = new Span();
+        transToSpan(span, rs);
+        return span;
+    }
+
+    public static List<Span> getSpanObjsByRs(ResultSet rs) throws SQLException {
+        List<Span> currentSpan = Lists.newArrayList();
+        while (rs.next()) {
+            Span span = new Span();
+            transToSpan(span, rs);
+            currentSpan.add(span);
+        }
+        return currentSpan;
+    }
+
+    public static void transToSpan(Span span, ResultSet rs) throws SQLException {
+        span.setId(rs.getString("id"));
+        span.setTrace_id(rs.getString("trace_id"));
+        span.setSpan_id(rs.getString("span_id"));
+        span.setParent_id(rs.getString("parent_id"));
+        span.setStart(rs.getString("start"));
+        span.setEnd(rs.getString("end"));
+        span.setDuration(Math.round(Long.parseLong(span.getEnd()) - Long.parseLong(span.getStart())));
+        span.setIs_async(rs.getInt("is_async"));
+        span.setIs_error(rs.getInt("is_error"));
+        span.setExpect(rs.getInt("expect"));
+        String moudle = rs.getString("moudle");
+        span.setMoudle(moudle);
+        span.setShort_moudle(moudle.substring(moudle.lastIndexOf('.') + 1, moudle.length()));
+        String title = rs.getString("title");
+        span.setTitle(title);
+        span.setShort_title(title.substring(title.lastIndexOf('.') + 1, title.length()));
+        span.setTags(rs.getString("tags"));
+        span.setCtime(rs.getString("ctime"));
+        span.setMerge(rs.getInt("merge"));
+        span.setAvg_duration(rs.getInt("avg_duration"));
+        span.setMin_duration(rs.getInt("min_duration"));
+        span.setMax_duration(rs.getInt("max_duration"));
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public long getTrace_id() {
+    public String getTrace_id() {
         return trace_id;
     }
 
-    public void setTrace_id(long trace_id) {
+    public void setTrace_id(String trace_id) {
         this.trace_id = trace_id;
     }
 
-    public long getSpan_id() {
+    public String getSpan_id() {
         return span_id;
     }
 
-    public void setSpan_id(long span_id) {
+    public void setSpan_id(String span_id) {
         this.span_id = span_id;
     }
 
-    public long getParent_id() {
+    public String getParent_id() {
         return parent_id;
     }
 
-    public void setParent_id(long parent_id) {
+    public void setParent_id(String parent_id) {
         this.parent_id = parent_id;
     }
 
-    public long getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(long start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public long getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public void setEnd(long end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 
@@ -128,12 +169,28 @@ public class Span {
         this.expect = expect;
     }
 
+    public String getShort_moudle() {
+        return short_moudle;
+    }
+
+    public void setShort_moudle(String short_moudle) {
+        this.short_moudle = short_moudle;
+    }
+
     public String getMoudle() {
         return moudle;
     }
 
     public void setMoudle(String moudle) {
         this.moudle = moudle;
+    }
+
+    public String getShort_title() {
+        return short_title;
+    }
+
+    public void setShort_title(String short_title) {
+        this.short_title = short_title;
     }
 
     public String getTitle() {
@@ -168,22 +225,6 @@ public class Span {
         this.duration = duration;
     }
 
-    public String getShort_moudle() {
-        return short_moudle;
-    }
-
-    public void setShort_moudle(String short_moudle) {
-        this.short_moudle = short_moudle;
-    }
-
-    public String getShort_title() {
-        return short_title;
-    }
-
-    public void setShort_title(String short_title) {
-        this.short_title = short_title;
-    }
-
     public int getMerge() {
         return merge;
     }
@@ -214,46 +255,5 @@ public class Span {
 
     public void setMax_duration(int max_duration) {
         this.max_duration = max_duration;
-    }
-
-    public static Span getSpanObjByRs(ResultSet rs) throws SQLException {
-        Span span = new Span();
-        transToSpan(span, rs);
-        return span;
-    }
-
-    public static List<Span> getSpanObjsByRs(ResultSet rs) throws SQLException {
-        List<Span> currentSpan = Lists.newArrayList();
-        while (rs.next()) {
-            Span span = new Span();
-            transToSpan(span, rs);
-            currentSpan.add(span);
-        }
-        return currentSpan;
-    }
-
-    public static void transToSpan(Span span, ResultSet rs) throws SQLException {
-        span.setId(rs.getLong("id"));
-        span.setTrace_id(rs.getLong("trace_id"));
-        span.setSpan_id(rs.getLong("span_id"));
-        span.setParent_id(rs.getLong("parent_id"));
-        span.setStart(rs.getLong("start"));
-        span.setEnd(rs.getLong("end"));
-        span.setDuration(Math.round((span.getEnd() - span.getStart())));
-        span.setIs_async(rs.getInt("is_async"));
-        span.setIs_error(rs.getInt("is_error"));
-        span.setExpect(rs.getInt("expect"));
-        String moudle = rs.getString("moudle");
-        span.setMoudle(moudle);
-        span.setShort_moudle(moudle.substring(moudle.lastIndexOf('.') + 1, moudle.length()));
-        String title = rs.getString("title");
-        span.setTitle(title);
-        span.setShort_title(title.substring(title.lastIndexOf('.') + 1, title.length()));
-        span.setTags(rs.getString("tags"));
-        span.setCtime(rs.getString("ctime"));
-        span.setMerge(rs.getInt("merge"));
-        span.setAvg_duration(rs.getInt("avg_duration"));
-        span.setMin_duration(rs.getInt("min_duration"));
-        span.setMax_duration(rs.getInt("max_duration"));
     }
 }

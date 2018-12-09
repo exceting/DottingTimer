@@ -4,6 +4,7 @@
  */
 package dotting.timer.client.controller;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import dotting.timer.client.db.ConnectionPool;
@@ -33,17 +34,17 @@ public class SpanController {
     }
 
     @RequestMapping(value = "/spans", method = RequestMethod.GET)
-    public DataResult spans(@RequestParam(value = "traceId") int traceId) {
+    public DataResult spans(@RequestParam(value = "traceId") long traceId) {
 
         String sql = String.format("SELECT * FROM t_span_node WHERE trace_id = %s ORDER BY start ASC", traceId);
         List<Span> result = ConnectionPool.connectionPool.getResults(sql);
-        Map<Long, List<Span>> treeMap = Maps.newTreeMap();
+        Map<String, List<Span>> treeMap = Maps.newTreeMap();
         SpanTree masterThread = new SpanTree();
         List<SpanTree> slaveThread = Lists.newArrayList();
         List<Span> slaveSpan = Lists.newArrayList();
         if (result != null) {
             result.forEach(r -> {
-                if (r.getParent_id() == 0) {
+                if ("0".equals(r.getParent_id())) {
                     if(r.getIs_async() == 0){
                         masterThread.setNode(r);
                     }else{
@@ -66,7 +67,7 @@ public class SpanController {
         return DataResult.success(SpanTrees.build(masterThread, slaveThread));
     }
 
-    private void makeTree(SpanTree currentSpan, Map<Long, List<Span>> treeMap) {
+    private void makeTree(SpanTree currentSpan, Map<String, List<Span>> treeMap) {
         List<Span> nowChild = treeMap.get(currentSpan.getNode().getSpan_id());
         if (nowChild != null && nowChild.size() > 0) {
             nowChild.forEach(nc -> makeTree(currentSpan.setChild(nc), treeMap));

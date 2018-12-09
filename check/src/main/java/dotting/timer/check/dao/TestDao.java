@@ -59,7 +59,7 @@ public class TestDao {
     }
 
     @DottingNode(expect = 5)
-    public void asyncMethodDao1(){
+    public void asyncMethodDao0() {
         try {
             Thread.sleep(1L);
         } catch (InterruptedException e) {
@@ -68,7 +68,7 @@ public class TestDao {
     }
 
     @DottingNode(expect = 5)
-    public void asyncMethodDao2(){
+    public void asyncMethodDao1() {
         try {
             Thread.sleep(1L);
         } catch (InterruptedException e) {
@@ -77,7 +77,7 @@ public class TestDao {
     }
 
     @DottingNode(expect = 5)
-    public void asyncMethodDao3(){
+    public void asyncMethodDao2() {
         try {
             Thread.sleep(1L);
         } catch (InterruptedException e) {
@@ -86,7 +86,25 @@ public class TestDao {
     }
 
     @DottingNode(expect = 5)
-    public void asyncMethodDao4(){
+    public void asyncMethodDao3() {
+        try {
+            Thread.sleep(1L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @DottingNode(expect = 5)
+    public void asyncMethodDao4() {
+        try {
+            Thread.sleep(1L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @DottingNode(expect = 5)
+    public void asyncMethodDao5() {
         try {
             Thread.sleep(1L);
         } catch (InterruptedException e) {

@@ -1,5 +1,6 @@
 package dotting.timer.check.service;
 
+import dotting.timer.check.controller.TestController;
 import dotting.timer.check.dao.TestDao;
 import dotting.timer.core.annos.DottingNode;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,19 @@ public class TestService {
     }
 
     @DottingNode(expect = 5)
+    public void asyncMethod0() {
+        TestController.threadPool.submit(() -> {
+            testDao.asyncMethodDao1();
+        });
+        testDao.asyncMethodDao0();
+        for (int i = 0; i < 7; i++) {
+            testDao.asyncMethodDao0();
+        }
+    }
+
+    @DottingNode(expect = 5)
     public void asyncMethod1() {
+        TestController.threadPool.submit(() -> testDao.asyncMethodDao5());
         for (int i = 0; i < 2; i++) {
             testDao.asyncMethodDao1();
         }

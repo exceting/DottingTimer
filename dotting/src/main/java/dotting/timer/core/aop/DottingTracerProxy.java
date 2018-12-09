@@ -94,20 +94,17 @@ public class DottingTracerProxy {
 
                 DottingSpan currentSpan = null;
 
-                if (context.isMainThread()) {
-                    if (parentSpan == null || parentSpan.context() == null) {
+                if (parentSpan == null || parentSpan.context() == null) {
+                    if (context.isMainThread()) {
                         return;
                     }
-                } else {
-                    if (parentSpan == null || parentSpan.context() == null) {
-                        currentSpan = currentTracer.buildSpan(finalMethod)
-                                .setExpect(dottingNode.expect())
-                                .setIsAsync(true)
-                                .withTag(SpanTags.PRO_NAME, dottingNode.moudle())
-                                .withTag(SpanTags.CLASS_NAME, className)
-                                .withTag(SpanTags.MEHODE_NAME, finalMethod)
-                                .start();
-                    }
+                    currentSpan = currentTracer.buildSpan(finalMethod)
+                            .setExpect(dottingNode.expect())
+                            .setIsAsync(true)
+                            .withTag(SpanTags.PRO_NAME, dottingNode.moudle())
+                            .withTag(SpanTags.CLASS_NAME, className)
+                            .withTag(SpanTags.MEHODE_NAME, finalMethod)
+                            .start();
                 }
                 if (currentSpan == null) {
                     DottingSpanContext dottingSpanContext = new DottingSpanContext(parentSpan.context().getTraceId(),

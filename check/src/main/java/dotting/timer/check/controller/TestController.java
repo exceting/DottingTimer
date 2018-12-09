@@ -23,7 +23,9 @@ public class TestController {
     @Resource
     private TestDao testDao;
 
-    private ExecutorService threadPool = DottingTracerTTL.transToTTL(Executors.newFixedThreadPool(4));
+    public static ExecutorService threadPool = DottingTracerTTL.transToTTL(Executors.newFixedThreadPool(4));
+
+    public static ExecutorService threadPool2 = DottingTracerTTL.transToTTL(Executors.newFixedThreadPool(4));
 
     @RequestMapping("/test1")
     @DottingNode(moudle = "dotting.timer.check", expect = 40, root = true, debug = true)
@@ -39,18 +41,28 @@ public class TestController {
 
     @RequestMapping("/asyncTest1")
     @DottingNode(moudle = "dotting.timer.check", expect = 50, root = true, debug = true)
-    public String asyncTest1(){
+    public String asyncTest1() {
         StringBuilder sb = new StringBuilder();
         sb.append("one is :")
                 .append(testService.getResultService1())
                 .append(",  other one is : ")
                 .append(testService.getResultService2());
-        testService.loopService1();
-        threadPool.submit(()-> testService.asyncMethod1());
-        threadPool.submit(()-> testService.asyncMethod2());
-        threadPool.submit(()-> testService.asyncMethod1());
-        threadPool.submit(()-> testService.asyncMethod2());
-        threadPool.submit(()-> testService.asyncMethod1());
+        for (int i = 0; i < 10; i++) {
+            testService.loopService1();
+        }
+        testDao.asyncMethodDao1();
+        testDao.asyncMethodDao0();
+        for (int i = 0; i < 7; i++) {
+            testDao.asyncMethodDao0();
+        }
+        TestController.threadPool.submit(() -> {
+            testService.asyncMethod0();
+        });
+        threadPool.submit(() -> testService.asyncMethod1());
+        threadPool.submit(() -> testService.asyncMethod2());
+        threadPool.submit(() -> testService.asyncMethod1());
+        threadPool.submit(() -> testService.asyncMethod2());
+        threadPool2.submit(() -> testService.asyncMethod1());
         return sb.toString();
     }
 

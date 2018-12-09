@@ -69,6 +69,10 @@ public class DottingTracerContext {
         return spans != null && spans.get(Thread.currentThread()).size() == 0;
     }
 
+    public boolean isAllAsyncFinished() {
+        return spans != null && spans.get(Thread.currentThread()).size() == 1;//无中生妈
+    }
+
     public synchronized DottingSpan getCurrentSpan() {
         if (spans != null && spans.size() > 0) {
             LinkedList<DottingSpan> nowSpans = spans.get(Thread.currentThread());
