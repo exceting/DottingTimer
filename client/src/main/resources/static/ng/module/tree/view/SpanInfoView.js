@@ -4,6 +4,7 @@ define(function (require, exports, module) {
     seajs.use('./css/module/orgchart/tree/jquery.orgchart.css');
     seajs.use('./css/module/orgchart/tree/style.css');
     seajs.use('./css/module/orgchart/tree/tree_style.css');
+    seajs.use('./css/module/span_info.css');
 
     var mainTemp = require('module/tree/tpl/SpanInfoView.tpl');
     var modalTemp = require('module/tree/tpl/NodeModal.tpl');
@@ -74,7 +75,7 @@ define(function (require, exports, module) {
                     htm += this.rateTimeHtm(min_rate, node.min_duration);
                     htm += "</td></tr>";
                 }
-                htm += "<tr><td>其他信息</td><td style='word-wrap:break-word'>"+node.tags+"</td></tr>"
+                htm += "<tr><td>其他信息</td><td style='word-wrap:break-word'>" + node.tags + "</td></tr>"
                 htm += "</tbody></table>";
                 this.$el.find('.modal-body').html(htm);
             }
@@ -106,7 +107,12 @@ define(function (require, exports, module) {
                         });
 
                         var slaveNum = resp.data.slaveThread.length;
-                        view.$el.find('.async_num').text(slaveNum)
+                        if (slaveNum == null || slaveNum == 0) {
+                            view.$el.find('.async_num').html("该主线程并没有产生任何子线程链路~");
+                        } else {
+                            view.$el.find('.async_num').html("该主线程共产生<span style='font-weight: bolder; color: #ff869a'>"+slaveNum+"</span>个子线程");
+                        }
+
                         view.model.tree_nodes = {};//清理
                         for (var i = 0; i < slaveNum; i++) {
                             view.makeTree(view.model.tree_nodes, resp.data.slaveThread[i]);
