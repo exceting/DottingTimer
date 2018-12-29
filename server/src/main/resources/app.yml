@@ -11,7 +11,7 @@ dotting:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     username: root
-    password: sun123456`
+    password: sun123456
     url: jdbc:mysql://127.0.0.1:3306/tree_tracer?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull
     maxActive: 20
     minIdle: 5
