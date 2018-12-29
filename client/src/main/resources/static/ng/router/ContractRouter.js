@@ -1,20 +1,21 @@
-define(function(require, exports, module) {
+define(function (require, exports, module) {
 
     var BackboneUtil = require('util/BackboneUtil');
 
     var ContractRouter = Backbone.Router.extend({
         routes: {
-            "trace":"trace",
-            "span/info/(:id)":"spanInfo",
+            "trace": "trace",
+            "span/info/(:id)": "spanInfo",
+            "quill/test": "quillTest",
             "*path": "home"
         },
 
-        setApp: function(app) {
+        setApp: function (app) {
             this.app = app;
         },
 
         home: function (queryString) {
-            if(queryString){
+            if (queryString) {
                 var options = BackboneUtil.queryStringToObject(queryString);
             }
             this.app.renderHome(options);
@@ -28,7 +29,11 @@ define(function(require, exports, module) {
             this.app.renderSpanInfo(id);
         },
 
-        defaultRoute: function(args) {
+        quillTest: function () {
+            this.app.renderQuillTest();
+        },
+
+        defaultRoute: function (args) {
             alert('路由路径不存在！');
         }
     });

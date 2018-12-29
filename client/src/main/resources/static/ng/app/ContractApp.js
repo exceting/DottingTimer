@@ -57,6 +57,20 @@ define(function(require, exports, module) {
             });
         },
 
+        renderQuillTest: function () {
+            var app = this;
+
+            require.async('module/quill/QuillPage', function (QuillPage) {
+                if (!(app.lastPage instanceof QuillPage)) {
+                    app.reset();
+                    app.lastPage = new QuillPage({
+                        el: app.pageEl
+                    });
+                }
+                app.lastPage.go();
+            });
+        },
+
         reset: function() {
             if (this.lastPage) {
                 this.lastPage.remove();
