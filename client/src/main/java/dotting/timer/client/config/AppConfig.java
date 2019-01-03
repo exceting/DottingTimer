@@ -3,7 +3,7 @@
  * Copyright (c) 2018-2019 All Rights Reserved.
  */
 
-package dotting.timer.ui.config;
+package dotting.timer.client.config;
 
 import dotting.timer.client.db.ConnectionPool;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
