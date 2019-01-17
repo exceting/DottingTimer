@@ -6,7 +6,6 @@ define(function (require, exports, module) {
         routes: {
             "trace": "trace",
             "span/info/(:id)": "spanInfo",
-            "quill/test": "quillTest",
             "*path": "home"
         },
 
@@ -27,10 +26,6 @@ define(function (require, exports, module) {
 
         spanInfo: function (id) {
             this.app.renderSpanInfo(id);
-        },
-
-        quillTest: function () {
-            this.app.renderQuillTest();
         },
 
         defaultRoute: function (args) {
