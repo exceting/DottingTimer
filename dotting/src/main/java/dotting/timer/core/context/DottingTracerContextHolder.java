@@ -8,7 +8,7 @@ import com.alibaba.ttl.TransmittableThreadLocal;
  */
 public class DottingTracerContextHolder {
 
-    private static TransmittableThreadLocal<DottingTracerContext> contextHolder = new TransmittableThreadLocal<>();
+    private static ThreadLocal<DottingTracerContext> contextHolder = new TransmittableThreadLocal<>();
 
     private DottingTracerContextHolder() {
     }

@@ -110,13 +110,13 @@ define(function (require, exports, module) {
                         if (slaveNum == null || slaveNum == 0) {
                             view.$el.find('.async_num').html("该主线程并没有产生任何子线程链路~");
                         } else {
-                            view.$el.find('.async_num').html("该主线程共产生<span style='font-weight: bolder; color: #ff869a'>"+slaveNum+"</span>个子线程");
+                            view.$el.find('.async_num').html("该主线程共产生<span style='font-weight: bolder; color: #ff869a'>"+slaveNum+"</span>个异步任务");
                         }
 
                         view.model.tree_nodes = {};//清理
                         for (var i = 0; i < slaveNum; i++) {
                             view.makeTree(view.model.tree_nodes, resp.data.slaveThread[i]);
-                            view.$el.find('.slave').append("<div class='chart-container' id='slave_tree_" + i + "'><div class='slave-chart-badge'><span class='glyphicon glyphicon-leaf'></span>&nbsp;&nbsp;链路" + (i + 1) + "号子线程</div></div>");
+                            view.$el.find('.slave').append("<div class='chart-container' id='slave_tree_" + i + "'><div class='slave-chart-badge'><span class='glyphicon glyphicon-leaf'></span>&nbsp;&nbsp;链路" + (i + 1) + "号子任务</div></div>");
                             $('#slave_tree_' + i).orgchart({
                                 'data': view.model.tree_nodes,
                                 'nodeContent': 'title'

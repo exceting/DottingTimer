@@ -55,14 +55,14 @@ public class TestController {
         for (int i = 0; i < 7; i++) {
             testDao.asyncMethodDao0();
         }
-        TestController.threadPool.submit(() -> {
+        TestController.threadPool.execute(() -> {
             testService.asyncMethod0();
         });
-        threadPool.submit(() -> testService.asyncMethod1());
-        threadPool.submit(() -> testService.asyncMethod2());
-        threadPool.submit(() -> testService.asyncMethod1());
-        threadPool.submit(() -> testService.asyncMethod2());
-        threadPool2.submit(() -> testService.asyncMethod1());
+        threadPool.execute(() -> testService.asyncMethod1());
+        threadPool.execute(() -> testService.asyncMethod2());
+        threadPool.execute(() -> testService.asyncMethod1());
+        threadPool.execute(() -> testService.asyncMethod2());
+        threadPool2.execute(() -> testService.asyncMethod1());
         return sb.toString();
     }
 
