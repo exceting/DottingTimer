@@ -1,4 +1,4 @@
-.unit_info{
+.unit_info {
     margin-bottom: 10px;
     width: auto;
     min-width: 10px;
@@ -15,7 +15,7 @@
     background-size: 100% 100%;
 }
 
-.unit_intro{
+.unit_intro {
     padding: 10px;
     line-height: 1.8;
     margin-left: 20px;
@@ -27,7 +27,7 @@
     float: left;
 }
 
-.unit_intro:before{
+.unit_intro:before {
     position: absolute;
     content: "";
     width: 0;
@@ -40,7 +40,7 @@
 }
 
 
-.unit_intro_main{
+.unit_intro_main {
     padding: 10px;
     line-height: 1.8;
     margin-left: 20px;
@@ -52,7 +52,7 @@
     float: left;
 }
 
-.unit_intro_main:before{
+.unit_intro_main:before {
     position: absolute;
     content: "";
     width: 0;

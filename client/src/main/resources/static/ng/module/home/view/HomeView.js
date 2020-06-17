@@ -1,4 +1,4 @@
-define(function(require, exports, module) {
+define(function (require, exports, module) {
 
     //seajs.use('./css/module/homelist.css');
 
@@ -9,16 +9,14 @@ define(function(require, exports, module) {
     var HomeView = Backbone.View.extend({
         template: Template,
 
-        initialize: function() {
+        initialize: function () {
             this.model = new Home();
             this.$el.append(this.template);
         },
 
-        events: {
+        events: {},
 
-        },
-
-        request: function() {
+        request: function () {
         }
     });
 

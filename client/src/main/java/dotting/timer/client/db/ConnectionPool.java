@@ -45,7 +45,7 @@ public class ConnectionPool {
         } catch (SQLException e) {
             logger.error("dotting tracer connection pool get result error! sql={}", sql, e);
         } finally {
-            if(statement != null){
+            if (statement != null) {
                 try {
                     statement.close();
                     connection.close();
@@ -68,7 +68,7 @@ public class ConnectionPool {
         } catch (SQLException e) {
             logger.error("dotting tracer connection pool get results error! sql={}", sql, e);
         } finally {
-            if(statement != null){
+            if (statement != null) {
                 try {
                     statement.close();
                     connection.close();
@@ -96,7 +96,7 @@ public class ConnectionPool {
         } catch (SQLException e) {
             logger.error("dotting tracer connection pool get page results error! sql={}", sql, e);
         } finally {
-            if(statement != null && statementCount != null){
+            if (statement != null && statementCount != null) {
                 try {
                     statement.close();
                     statementCount.close();

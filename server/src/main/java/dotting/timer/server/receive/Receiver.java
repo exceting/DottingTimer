@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Receiver {
 
-    private static Logger logger = LoggerFactory.getLogger(Receiver.class);
+    private final static Logger logger = LoggerFactory.getLogger(Receiver.class);
 
     public Receiver(int port, PipLineFactory pipLineFactory) {
         new Thread(() -> {

@@ -16,9 +16,9 @@ import java.util.Map;
  */
 public class PipLineFactory {
 
-    private Map<Integer, PipLine> pipLines = Maps.newHashMap();
+    private final Map<Integer, PipLine> pipLines = Maps.newHashMap();
 
-    private int size;
+    private final int size;
 
     public PipLineFactory(int pipLineSize, DruidDataSource dataSource) {
         size = pipLineSize;

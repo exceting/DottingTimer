@@ -34,12 +34,12 @@ public class InitConfig {
 
     @Bean(name = "receiver")
     public Receiver receiver(@Qualifier("configParam") ConfigParam configParam,
-                                      @Qualifier("dataSource") DruidDataSource dataSource) throws Exception {
+                             @Qualifier("dataSource") DruidDataSource dataSource) {
         if (configParam.getReceiverPort() == null) {
-            throw new Exception("receiver port is null !");
+            throw new IllegalArgumentException("receiver port is null !");
         }
         if (configParam.getPiplineSize() == null || configParam.getPiplineSize() <= 0) {
-            throw new Exception("receiver pipline size is error !");
+            throw new IllegalArgumentException("receiver pipline size is error !");
         }
         return new Receiver(configParam.getReceiverPort(),
                 new PipLineFactory(configParam.getPiplineSize(), dataSource));

@@ -18,7 +18,7 @@ public class ReceiverHandler extends SimpleChannelInboundHandler<DatagramPacket>
 
     private PipLineFactory pipLineFactory;
 
-    public ReceiverHandler(PipLineFactory pipLineFactory){
+    public ReceiverHandler(PipLineFactory pipLineFactory) {
         this.pipLineFactory = pipLineFactory;
     }
 

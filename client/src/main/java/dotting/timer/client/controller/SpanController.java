@@ -45,9 +45,9 @@ public class SpanController {
         if (result != null) {
             result.forEach(r -> {
                 if ("0".equals(r.getParent_id())) {
-                    if(r.getIs_async() == 0){
+                    if (r.getIs_async() == 0) {
                         masterThread.setNode(r);
-                    }else{
+                    } else {
                         slaveSpan.add(r);
                     }
                 }
@@ -57,7 +57,7 @@ public class SpanController {
             // 主线程链路
             makeTree(masterThread, treeMap);
             // 子线程链路
-            slaveSpan.forEach(s->{
+            slaveSpan.forEach(s -> {
                 SpanTree slave = new SpanTree();
                 slave.setNode(s);
                 makeTree(slave, treeMap);

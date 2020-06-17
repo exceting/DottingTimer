@@ -1,4 +1,4 @@
-define(function(require, exports, module) {
+define(function (require, exports, module) {
 
     var Top = require('component/Top');
 
@@ -7,11 +7,11 @@ define(function(require, exports, module) {
         main$el: $('.main'),
         pageEl: '#page',
 
-        initialize: function(options) {
+        initialize: function (options) {
             this.top = new Top();
             this.lastPage = null;
-            if(bootbox){
-                bootbox.setDefaults({title:'请求结果'});
+            if (bootbox) {
+                bootbox.setDefaults({title: '请求结果'});
             }
         },
 
@@ -57,7 +57,7 @@ define(function(require, exports, module) {
             });
         },
 
-        reset: function() {
+        reset: function () {
             if (this.lastPage) {
                 this.lastPage.remove();
                 this.main$el.append('<div id="page" style="margin-top: 160px"/>');

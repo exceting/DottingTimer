@@ -2,24 +2,31 @@
 .orgchart td.left, .orgchart td.right, .orgchart td.top {
     border-color: #454545;
 }
-.orgchart td>.down {
+
+.orgchart td > .down {
     background-color: #454545;
 }
+
 .orgchart .warn-level .title {
     background-color: #ffa90b;
 }
+
 .orgchart .warn-level .content {
     border-color: #ffa90b;
 }
+
 .orgchart .info-level .title {
     background-color: #3fd912;
 }
+
 .orgchart .info-level .content {
     border-color: #3fd912;
 }
+
 .orgchart .error-level .title {
     background-color: #ff3f46;
 }
+
 .orgchart .error-level .content {
     border-color: #ff3f46;
 }
@@ -27,20 +34,25 @@
 .orgchart .warn-for-level .title {
     background-color: #ffa90b;
 }
+
 .orgchart .warn-for-level .content {
     border-color: #ffa90b;
     background-color: #fff9b6;
 }
+
 .orgchart .info-for-level .title {
     background-color: #3fd912;
 }
+
 .orgchart .info-for-level .content {
     border-color: #3fd912;
     background-color: #caffca;
 }
+
 .orgchart .error-for-level .title {
     background-color: #ff3f46;
 }
+
 .orgchart .error-for-level .content {
     border-color: #ff3f46;
     background-color: #ffcabc;

@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
  * @author sunqinwen
- * @version \: ModelController.java,v 0.1 2018-11-19 11:47 
- *
+ * @version \: ModelController.java,v 0.1 2018-11-19 11:47
  */
 @RestController
 public class ModelController {

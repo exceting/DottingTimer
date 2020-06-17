@@ -9,10 +9,8 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 /**
- *
  * @author sunqinwen
- * @version \: SpanTree.java,v 0.1 2018-11-19 16:47 
- *
+ * @version \: SpanTree.java,v 0.1 2018-11-19 16:47
  */
 public class SpanTree {
 

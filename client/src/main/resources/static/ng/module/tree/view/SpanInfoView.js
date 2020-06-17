@@ -110,7 +110,7 @@ define(function (require, exports, module) {
                         if (slaveNum == null || slaveNum == 0) {
                             view.$el.find('.async_num').html("该主线程并没有产生任何子线程链路~");
                         } else {
-                            view.$el.find('.async_num').html("该主线程共产生<span style='font-weight: bolder; color: #ff869a'>"+slaveNum+"</span>个异步任务");
+                            view.$el.find('.async_num').html("该主线程共产生<span style='font-weight: bolder; color: #ff869a'>" + slaveNum + "</span>个异步任务");
                         }
 
                         view.model.tree_nodes = {};//清理

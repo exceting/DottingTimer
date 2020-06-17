@@ -26,7 +26,7 @@ public class SpanSerializer extends Serializer<CoreSpan> {
         output.writeInt(span.getIsAsync());
         output.writeInt(span.getIsError());
         output.writeLong(span.getExpect(), true);
-        output.writeString(span.getMoudle());
+        output.writeString(span.getModule());
         output.writeString(span.getTitle());
         output.writeString(span.getTags());
         output.writeLong(span.getCount(), true);
@@ -46,7 +46,7 @@ public class SpanSerializer extends Serializer<CoreSpan> {
         span.setIsAsync(input.readInt());
         span.setIsError(input.readInt());
         span.setExpect(input.readLong(true));
-        span.setMoudle(input.readString());
+        span.setModule(input.readString());
         span.setTitle(input.readString());
         span.setTags(input.readString());
         span.setCount(input.readLong(true));

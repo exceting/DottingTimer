@@ -22,11 +22,11 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class PipLine {
 
-    private Logger logger = LoggerFactory.getLogger(PipLine.class);
+    private final Logger logger = LoggerFactory.getLogger(PipLine.class);
 
-    private BlockingQueue<byte[]> queue;
+    private final BlockingQueue<byte[]> queue;
 
-    private DruidDataSource dataSource;
+    private final DruidDataSource dataSource;
 
     public PipLine(DruidDataSource dataSource) {
         this.dataSource = dataSource;
@@ -56,7 +56,7 @@ public class PipLine {
                                 span.getIsAsync(),
                                 span.getIsError(),
                                 span.getExpect(),
-                                span.getMoudle(),
+                                span.getModule(),
                                 span.getTitle(),
                                 span.getTags(),
                                 span.getCount(),

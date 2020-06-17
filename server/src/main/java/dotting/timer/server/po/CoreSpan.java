@@ -15,14 +15,14 @@ public class CoreSpan implements Serializable {
     private int isAsync;
     private int isError;
     private long expect;
-    private String moudle;
+    private String module;
     private String title;
     private String tags;
     private long count;
     private long avg;
     private long minTime;
     private long maxTime;
-    
+
     public long getTraceId() {
         return traceId;
     }
@@ -71,12 +71,12 @@ public class CoreSpan implements Serializable {
         this.expect = expect;
     }
 
-    public String getMoudle() {
-        return moudle;
+    public String getModule() {
+        return module;
     }
 
-    public void setMoudle(String moudle) {
-        this.moudle = moudle;
+    public void setModule(String module) {
+        this.module = module;
     }
 
     public String getTitle() {

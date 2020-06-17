@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     Span.prototype = {
         constructor: Span,
         getSpanInfo: function () {
-            var param = {traceId:this.id};
+            var param = {traceId: this.id};
             return HttpUtil.request({
                 url: STATEMENT.root + 'span/spans',
                 method: 'GET',
